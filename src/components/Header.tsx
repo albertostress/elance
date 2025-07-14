@@ -15,7 +15,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed top-0 w-full bg-ivory-50/95 backdrop-blur-sm z-50 border-b border-earth-200">
+    <header className="fixed top-0 w-full bg-background/95 backdrop-blur-sm z-50 border-b border-border">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -23,7 +23,7 @@ const Header = () => {
             <img 
               src="/lovable-uploads/83f76c71-b8b4-4137-9d66-3c4232469002.png" 
               alt="Muxima Gelato" 
-              className="h-12 w-auto"
+              className="h-10 w-auto mix-blend-multiply"
             />
           </div>
 
@@ -33,10 +33,10 @@ const Header = () => {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-earth-700 hover:text-gold-600 font-medium transition-colors duration-200 relative group"
+                className="text-foreground hover:text-primary font-medium transition-colors duration-200 relative group"
               >
                 {item.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold-600 transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
               </a>
             ))}
           </nav>
@@ -54,12 +54,12 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden py-4 border-t border-earth-200 animate-fade-in">
+          <nav className="md:hidden py-4 border-t border-border animate-fade-in">
             {navItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                className="block py-2 text-earth-700 hover:text-gold-600 font-medium transition-colors duration-200"
+                className="block py-2 text-foreground hover:text-primary font-medium transition-colors duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
