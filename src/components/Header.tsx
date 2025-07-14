@@ -20,9 +20,11 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <h1 className="text-2xl font-serif font-bold text-earth-800">
-              Muxima Gelato
-            </h1>
+            <img 
+              src="/lovable-uploads/83f76c71-b8b4-4137-9d66-3c4232469002.png" 
+              alt="Muxima Gelato" 
+              className="h-12 w-auto"
+            />
           </div>
 
           {/* Desktop Navigation */}
