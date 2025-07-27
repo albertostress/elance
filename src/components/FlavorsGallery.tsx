@@ -10,7 +10,7 @@ const FlavorsGallery = () => {
     { id: 'todos', name: 'Todos os Sabores' },
     { id: 'frutado', name: 'Frutados' },
     { id: 'cremoso', name: 'Cremosos' },
-    { id: 'exotico', name: 'Exóticos' },
+    { id: 'exotico', name: 'Especiais' },
     { id: 'limitado', name: 'Edição Limitada' }
   ];
 
@@ -21,7 +21,7 @@ const FlavorsGallery = () => {
       nameLocal: "Baobá Premium", 
       description: "Cremoso gelado de baobá com notas cítricas naturais da região do Bié",
       category: "frutado",
-      language: "Umbundu",
+      price: "2.500 Kz",
       image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
     },
     {
@@ -30,7 +30,7 @@ const FlavorsGallery = () => {
       nameLocal: "Gengibre das Montanhas",
       description: "Refrescante gelado com gengibre fresco das montanhas do Uíge",
       category: "exotico",
-      language: "Kimbundu", 
+      price: "2.800 Kz",
       image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
     },
     {
@@ -39,7 +39,7 @@ const FlavorsGallery = () => {
       nameLocal: "Baunilha do Deserto",
       description: "Luxuosa baunilha com toque de flor de sal do deserto do Namibe",
       category: "cremoso",
-      language: "Tchokwe",
+      price: "2.200 Kz",
       image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
     },
     {
@@ -48,7 +48,7 @@ const FlavorsGallery = () => {
       nameLocal: "Doçura Tropical",
       description: "Gelado artesanal com goiabas maduras de Malanje, rico e perfumado",
       category: "frutado",
-      language: "Kimbundu",
+      price: "2.400 Kz",
       image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
     },
     {
@@ -57,7 +57,7 @@ const FlavorsGallery = () => {
       nameLocal: "Robusta Premium",
       description: "Intenso gelado de café com grãos selecionados do planalto central",
       category: "cremoso",
-      language: "Umbundu",
+      price: "2.600 Kz",
       image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
     },
     {
@@ -66,7 +66,7 @@ const FlavorsGallery = () => {
       nameLocal: "Ouro Doce",
       description: "Edição especial com mel silvestre coletado nas florestas da Lunda Norte",
       category: "limitado",
-      language: "Tchokwe",
+      price: "3.200 Kz",
       image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
     }
   ];
@@ -81,11 +81,11 @@ const FlavorsGallery = () => {
         {/* Cabeçalho */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-earth-900 mb-4">
-            Nossa Coleção de Sabores
+            Nossos Sabores Premium
           </h2>
           <p className="text-lg text-earth-600 max-w-2xl mx-auto mb-8">
-            Cada gelado é cuidadosamente criado com ingredientes selecionados 
-            de todas as províncias de Angola, honrando nossa diversidade cultural.
+            Gelados artesanais feitos com os melhores ingredientes angolanos. 
+            Cada sabor representa uma província, cada gelado uma experiência única.
           </p>
 
           {/* Filtros */}
@@ -125,7 +125,7 @@ const FlavorsGallery = () => {
                 {/* Badges */}
                 <div className="absolute top-4 left-4 right-4 flex justify-between">
                   <span className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-earth-700">
-                    {flavor.language}
+                    {flavor.price}
                   </span>
                   {flavor.category === 'limitado' && (
                     <span className="bg-gold-600/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-white">
@@ -139,13 +139,18 @@ const FlavorsGallery = () => {
               </div>
               
               <CardContent className="p-6 space-y-3">
-                <div>
-                  <h3 className="text-xl font-serif font-semibold text-earth-900 mb-1">
-                    {flavor.name}
-                  </h3>
-                  <p className="text-sm text-gold-600 font-medium">
-                    {flavor.nameLocal}
-                  </p>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-xl font-serif font-semibold text-earth-900 mb-1">
+                      {flavor.name}
+                    </h3>
+                    <p className="text-sm text-gold-600 font-medium">
+                      {flavor.nameLocal}
+                    </p>
+                  </div>
+                  <span className="text-lg font-bold text-primary">
+                    {flavor.price}
+                  </span>
                 </div>
                 
                 <p className="text-earth-600 text-sm leading-relaxed">

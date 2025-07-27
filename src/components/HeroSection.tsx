@@ -20,14 +20,14 @@ const HeroSection = () => {
           {/* Conteúdo textual centralizado */}
           <div className="animate-fade-in">
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-foreground mb-8 leading-tight">
-              O sabor da nossa
-              <span className="text-primary block">terra refinado</span>
-              para o mundo
+              Gelados Artesanais
+              <span className="text-primary block">Premium</span>
+              em Luanda
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
-              Gelados artesanais de luxo que celebram a rica cultura angolana, 
-              criados com ingredientes locais e amor pela tradição.
+              Descubra sabores únicos criados especialmente para o paladar angolano. 
+              Ingredientes locais, qualidade internacional, sabor incomparável.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -44,9 +44,9 @@ const HeroSection = () => {
                 variant="outline" 
                 size="lg"
                 className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-10 py-4 rounded-full font-medium transition-all duration-300 text-lg"
-                onClick={() => document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => document.getElementById('loja')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                Nossa História
+                Visitar Loja
               </Button>
             </div>
           </div>
