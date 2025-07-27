@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { AngolanPattern2 } from './AngolanPatterns';
 
 const FlavorsGallery = () => {
   const [activeFilter, setActiveFilter] = useState('todos');
@@ -76,8 +77,11 @@ const FlavorsGallery = () => {
     : flavors.filter(flavor => flavor.category === activeFilter);
 
   return (
-    <section id="sabores" className="py-20 bg-white">
-      <div className="container mx-auto px-4">
+    <section id="sabores" className="py-20 bg-white relative overflow-hidden">
+      {/* Padrão angolano de fundo */}
+      <AngolanPattern2 className="opacity-4" />
+      
+      <div className="container mx-auto px-4 relative z-10">
         {/* Cabeçalho */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-earth-900 mb-4">
@@ -85,7 +89,7 @@ const FlavorsGallery = () => {
           </h2>
           <p className="text-lg text-earth-600 max-w-2xl mx-auto mb-8">
             Gelados artesanais feitos com os melhores ingredientes angolanos. 
-            Cada sabor representa uma província, cada gelado uma experiência única.
+            Sabores únicos que celebram a nossa cultura e tradição.
           </p>
 
           {/* Filtros */}
@@ -112,9 +116,21 @@ const FlavorsGallery = () => {
           {filteredFlavors.map((flavor, index) => (
             <Card 
               key={flavor.id}
-              className="group hover:shadow-2xl transition-all duration-500 border-0 bg-gradient-to-b from-ivory-50 to-white rounded-2xl overflow-hidden animate-fade-in"
+              className="group hover:shadow-2xl transition-all duration-500 border-0 bg-gradient-to-b from-ivory-50 to-white rounded-2xl overflow-hidden animate-fade-in relative"
               style={{ animationDelay: `${index * 150}ms` }}
             >
+              {/* Padrão sutil no card */}
+              <div className="absolute inset-0 opacity-2">
+                <svg width="100%" height="100%" viewBox="0 0 200 200" className="w-full h-full">
+                  <defs>
+                    <pattern id={`card-pattern-${flavor.id}`} x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                      <polygon points="20,5 30,15 20,25 10,15" fill="currentColor" className="text-gold-400" />
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill={`url(#card-pattern-${flavor.id})`} />
+                </svg>
+              </div>
+              
               <div className="relative overflow-hidden">
                 <img 
                   src={flavor.image}
@@ -138,7 +154,7 @@ const FlavorsGallery = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
               
-              <CardContent className="p-6 space-y-3">
+              <CardContent className="p-6 space-y-3 relative z-10">
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="text-xl font-serif font-semibold text-earth-900 mb-1">

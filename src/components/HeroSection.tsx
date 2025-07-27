@@ -1,6 +1,7 @@
 
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { AngolanPattern1 } from './AngolanPatterns';
 
 const HeroSection = () => {
   return (
@@ -8,11 +9,15 @@ const HeroSection = () => {
       {/* Background com gradiente */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary to-accent/10"></div>
       
+      {/* Padrão angolano de fundo */}
+      <AngolanPattern1 className="opacity-8" />
+      
       {/* Padrão decorativo sutil */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-20 w-32 h-32 border-2 border-primary/20 rounded-full"></div>
-        <div className="absolute bottom-32 right-16 w-24 h-24 border border-accent/30 rotate-45"></div>
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-secondary/40 rounded-full"></div>
+        <div className="absolute top-20 left-20 w-32 h-32 border-2 border-gold-400/30 rounded-full"></div>
+        <div className="absolute bottom-32 right-16 w-24 h-24 border border-earth-400/30 rotate-45"></div>
+        <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-moss-400/40 rounded-full"></div>
+        <div className="absolute top-1/3 right-1/3 w-20 h-20 border-2 border-gold-300/20 transform rotate-12"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -26,8 +31,8 @@ const HeroSection = () => {
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
-              Descubra sabores únicos criados especialmente para o paladar angolano. 
-              Ingredientes locais, qualidade internacional, sabor incomparável.
+              Os melhores gelados artesanais de Luanda com sabores únicos e autênticos. 
+              Qualidade premium, sabores inesquecíveis, preços justos.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
