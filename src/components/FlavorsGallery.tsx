@@ -12,7 +12,8 @@ const FlavorsGallery = () => {
     { id: 'frutado', name: 'Frutados' },
     { id: 'cremoso', name: 'Cremosos' },
     { id: 'exotico', name: 'Especiais' },
-    { id: 'limitado', name: 'Edição Limitada' }
+    { id: 'limitado', name: 'Edição Limitada' },
+    { id: 'tradicional', name: 'Tradicionais' }
   ];
 
   const flavors = [
@@ -69,6 +70,42 @@ const FlavorsGallery = () => {
       category: "limitado",
       price: "3.200 Kz",
       image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      id: 7,
+      name: "Açaí Energético",
+      nameLocal: "Vamos de Açaí",
+      description: "Cremoso açaí energético com frutas tropicais e granola crocante",
+      category: "frutado",
+      price: "2.800 Kz",
+      image: "/lovable-uploads/c26ef467-7e18-4cb5-91f6-88447aa4f7eb.png"
+    },
+    {
+      id: 8,
+      name: "Borcelle Tradicional",
+      nameLocal: "Doçura Ancestral",
+      description: "Tradicional borcelle angolano com receita familiar passada de geração em geração",
+      category: "tradicional",
+      price: "1.800 Kz",
+      image: "/lovable-uploads/32e96a36-2049-4c5e-9424-e3c0beb8e999.png"
+    },
+    {
+      id: 9,
+      name: "Polpa de Manga",
+      nameLocal: "Manga Glace",
+      description: "Polpa natural de manga 100% pura, gelada e refrescante",
+      category: "frutado",
+      price: "2.000 Kz",
+      image: "/lovable-uploads/32e96a36-2049-4c5e-9424-e3c0beb8e999.png"
+    },
+    {
+      id: 10,
+      name: "Que tal um açaí hoje?",
+      nameLocal: "Açaí Especial",
+      description: "Açaí premium com cobertura especial e frutas frescas selecionadas",
+      category: "exotico",
+      price: "3.000 Kz",
+      image: "/lovable-uploads/c26ef467-7e18-4cb5-91f6-88447aa4f7eb.png"
     }
   ];
 
@@ -136,6 +173,11 @@ const FlavorsGallery = () => {
                       Edição Limitada
                     </span>
                   )}
+                  {flavor.category === 'tradicional' && (
+                    <span className="bg-earth-600/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-white">
+                      Tradicional
+                    </span>
+                  )}
                 </div>
 
                 {/* Overlay gradient */}
@@ -167,6 +209,7 @@ const FlavorsGallery = () => {
                     flavor.category === 'frutado' ? 'bg-moss-100 text-moss-700' :
                     flavor.category === 'cremoso' ? 'bg-earth-100 text-earth-700' :
                     flavor.category === 'exotico' ? 'bg-gold-100 text-gold-700' :
+                    flavor.category === 'tradicional' ? 'bg-amber-100 text-amber-700' :
                     'bg-ivory-200 text-earth-800'
                   }`}>
                     {categories.find(cat => cat.id === flavor.category)?.name}
