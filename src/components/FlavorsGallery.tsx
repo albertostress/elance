@@ -119,18 +119,6 @@ const FlavorsGallery = () => {
               className="group hover:shadow-2xl transition-all duration-500 border-0 bg-gradient-to-b from-ivory-50 to-white rounded-2xl overflow-hidden animate-fade-in relative"
               style={{ animationDelay: `${index * 150}ms` }}
             >
-              {/* Padrão sutil no card */}
-              <div className="absolute inset-0 opacity-2">
-                <svg width="100%" height="100%" viewBox="0 0 200 200" className="w-full h-full">
-                  <defs>
-                    <pattern id={`card-pattern-${flavor.id}`} x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-                      <polygon points="20,5 30,15 20,25 10,15" fill="currentColor" className="text-gold-400" />
-                    </pattern>
-                  </defs>
-                  <rect width="100%" height="100%" fill={`url(#card-pattern-${flavor.id})`} />
-                </svg>
-              </div>
-              
               <div className="relative overflow-hidden">
                 <img 
                   src={flavor.image}
