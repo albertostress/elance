@@ -109,7 +109,7 @@ const defaultProducts: Product[] = [
     description: "Refrescante. Natural. Tropical. Experimente o nosso delicioso gelado de manga",
     category: "frutado",
     price: "2.300 Kz",
-    image: "/lovable-uploads/626bad5e-9f4a-48cc-afff-74f6c2b51c5d.png"
+    image: "/lovable-uploads/36e65ac6-eb88-4165-9f22-28fdd7ae3fab.png"
   }
 ];
 
