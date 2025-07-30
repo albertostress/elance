@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -8,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useProducts, Product } from '@/hooks/useProducts';
 import { Pencil, Trash2, Plus } from 'lucide-react';
+import ImageUpload from './ImageUpload';
 
 const ProductManager = () => {
   const { products, addProduct, updateProduct, deleteProduct } = useProducts();
@@ -128,7 +128,7 @@ const ProductManager = () => {
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="category">Categoria</Label>
                 <Select 
@@ -156,15 +156,14 @@ const ProductManager = () => {
                   placeholder="Ex: 2.500 Kz"
                 />
               </div>
-              <div>
-                <Label htmlFor="image">URL da Imagem</Label>
-                <Input
-                  id="image"
-                  value={formData.image}
-                  onChange={(e) => setFormData({...formData, image: e.target.value})}
-                  placeholder="URL da imagem do produto"
-                />
-              </div>
+            </div>
+
+            <div>
+              <ImageUpload
+                value={formData.image}
+                onChange={(url) => setFormData({...formData, image: url})}
+                label="Imagem do Produto"
+              />
             </div>
 
             <div className="flex gap-2 pt-4">
