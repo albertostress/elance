@@ -9,6 +9,9 @@ const FlavorsGallery = () => {
   const [activeFilter, setActiveFilter] = useState('todos');
   const { products } = useProducts();
 
+  console.log('Total produtos carregados:', products.length);
+  console.log('Produtos:', products);
+
   const categories = [
     { id: 'todos', name: 'Todos os Sabores' },
     { id: 'frutado', name: 'Frutados' },
@@ -21,6 +24,9 @@ const FlavorsGallery = () => {
   const filteredFlavors = activeFilter === 'todos' 
     ? products 
     : products.filter(flavor => flavor.category === activeFilter);
+
+  console.log('Filtro ativo:', activeFilter);
+  console.log('Produtos filtrados:', filteredFlavors.length);
 
   return (
     <section id="sabores" className="py-20 bg-white relative overflow-hidden">
