@@ -28,6 +28,11 @@ const FlavorsGallery = () => {
   console.log('Filtro ativo:', activeFilter);
   console.log('Produtos filtrados:', filteredFlavors.length);
 
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const target = e.target as HTMLImageElement;
+    target.src = "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80";
+  };
+
   return (
     <section id="sabores" className="py-20 bg-white relative overflow-hidden">
       {/* Padrão angolano de fundo */}
@@ -76,6 +81,7 @@ const FlavorsGallery = () => {
                   src={flavor.image}
                   alt={flavor.name}
                   className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-700"
+                  onError={handleImageError}
                 />
                 
                 {/* Badges */}

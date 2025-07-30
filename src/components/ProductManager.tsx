@@ -31,6 +31,11 @@ const ProductManager = () => {
     { value: 'tradicional', label: 'Tradicionais' }
   ];
 
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const target = e.target as HTMLImageElement;
+    target.src = "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80";
+  };
+
   const handleEdit = (product: Product) => {
     setIsEditing(product.id);
     setFormData({
@@ -186,6 +191,7 @@ const ProductManager = () => {
                 src={product.image}
                 alt={product.name}
                 className="w-full h-48 object-cover rounded-t-lg"
+                onError={handleImageError}
               />
               <div className="absolute top-2 right-2 flex gap-2">
                 <Button

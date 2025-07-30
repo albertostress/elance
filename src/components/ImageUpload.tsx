@@ -37,21 +37,14 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange, label = "Ima
     setIsUploading(true);
 
     try {
-      // Generate a unique filename
-      const timestamp = Date.now();
-      const randomId = Math.random().toString(36).substring(2);
-      const extension = file.name.split('.').pop();
-      const filename = `product-${timestamp}-${randomId}.${extension}`;
-
       // Create file reader to get base64 data
       const reader = new FileReader();
       reader.onload = (e) => {
         const result = e.target?.result as string;
-        const uploadUrl = `/lovable-uploads/${filename}`;
         
-        // Update preview and value
+        // Use the base64 data directly as both preview and value
         setPreview(result);
-        onChange(uploadUrl);
+        onChange(result);
         setIsUploading(false);
       };
       
