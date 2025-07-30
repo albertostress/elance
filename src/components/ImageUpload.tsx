@@ -14,6 +14,9 @@ interface ImageUploadProps {
 const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange, label = "Imagem" }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [preview, setPreview] = useState<string>(value);
+  
+  // Generate a stable ID for this component instance
+  const inputId = React.useId();
 
   const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -34,17 +37,13 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange, label = "Ima
     setIsUploading(true);
 
     try {
-      // Create form data
-      const formData = new FormData();
-      formData.append('file', file);
-
       // Generate a unique filename
       const timestamp = Date.now();
       const randomId = Math.random().toString(36).substring(2);
       const extension = file.name.split('.').pop();
       const filename = `product-${timestamp}-${randomId}.${extension}`;
 
-      // Simulate upload (in a real app, you'd upload to a service like Supabase Storage)
+      // Create file reader to get base64 data
       const reader = new FileReader();
       reader.onload = (e) => {
         const result = e.target?.result as string;
@@ -69,6 +68,10 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange, label = "Ima
     onChange('');
   };
 
+  const handleAreaClick = () => {
+    document.getElementById(inputId)?.click();
+  };
+
   return (
     <div className="space-y-2">
       <Label>{label}</Label>
@@ -91,7 +94,10 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange, label = "Ima
           </Button>
         </div>
       ) : (
-        <div className="border-2 border-dashed border-gray-300 rounded-md p-6 text-center hover:border-gray-400 transition-colors">
+        <div 
+          className="border-2 border-dashed border-gray-300 rounded-md p-6 text-center hover:border-gray-400 transition-colors cursor-pointer"
+          onClick={handleAreaClick}
+        >
           <Image className="w-8 h-8 mx-auto text-gray-400 mb-2" />
           <p className="text-sm text-gray-600 mb-2">
             Clique para selecionar uma imagem
@@ -108,26 +114,19 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange, label = "Ima
         onChange={handleFileSelect}
         disabled={isUploading}
         className="hidden"
-        id={`file-upload-${Math.random()}`}
+        id={inputId}
       />
       
-      <Label
-        htmlFor={`file-upload-${Math.random()}`}
-        className="cursor-pointer"
+      <Button
+        type="button"
+        variant="outline"
+        disabled={isUploading}
+        className="w-full"
+        onClick={handleAreaClick}
       >
-        <Button
-          type="button"
-          variant="outline"
-          disabled={isUploading}
-          className="w-full"
-          asChild
-        >
-          <span>
-            <Upload className="w-4 h-4 mr-2" />
-            {isUploading ? 'Enviando...' : 'Selecionar Imagem'}
-          </span>
-        </Button>
-      </Label>
+        <Upload className="w-4 h-4 mr-2" />
+        {isUploading ? 'Enviando...' : 'Selecionar Imagem'}
+      </Button>
     </div>
   );
 };
