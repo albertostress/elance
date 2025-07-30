@@ -3,9 +3,11 @@ import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { AngolanPattern2 } from './AngolanPatterns';
+import { useProducts } from '@/hooks/useProducts';
 
 const FlavorsGallery = () => {
   const [activeFilter, setActiveFilter] = useState('todos');
+  const { products } = useProducts();
 
   const categories = [
     { id: 'todos', name: 'Todos os Sabores' },
@@ -16,102 +18,9 @@ const FlavorsGallery = () => {
     { id: 'tradicional', name: 'Tradicionais' }
   ];
 
-  const flavors = [
-    {
-      id: 1,
-      name: "Múcua do Bié",
-      nameLocal: "Baobá Premium", 
-      description: "Cremoso gelado de baobá com notas cítricas naturais da região do Bié",
-      category: "frutado",
-      price: "2.500 Kz",
-      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      id: 2,
-      name: "Gengibre do Uíge",
-      nameLocal: "Gengibre das Montanhas",
-      description: "Refrescante gelado com gengibre fresco das montanhas do Uíge",
-      category: "exotico",
-      price: "2.800 Kz",
-      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      id: 3,
-      name: "Baunilha do Namibe",
-      nameLocal: "Baunilha do Deserto",
-      description: "Luxuosa baunilha com toque de flor de sal do deserto do Namibe",
-      category: "cremoso",
-      price: "2.200 Kz",
-      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      id: 4,
-      name: "Goiaba de Malanje",
-      nameLocal: "Doçura Tropical",
-      description: "Gelado artesanal com goiabas maduras de Malanje, rico e perfumado",
-      category: "frutado",
-      price: "2.400 Kz",
-      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      id: 5,
-      name: "Café do Kwanza Sul", 
-      nameLocal: "Robusta Premium",
-      description: "Intenso gelado de café com grãos selecionados do planalto central",
-      category: "cremoso",
-      price: "2.600 Kz",
-      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      id: 6,
-      name: "Mel Silvestre da Lunda",
-      nameLocal: "Ouro Doce",
-      description: "Edição especial com mel silvestre coletado nas florestas da Lunda Norte",
-      category: "limitado",
-      price: "3.200 Kz",
-      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      id: 7,
-      name: "Açaí Energético",
-      nameLocal: "Vamos de Açaí",
-      description: "Cremoso açaí energético com frutas tropicais e granola crocante",
-      category: "frutado",
-      price: "2.800 Kz",
-      image: "/lovable-uploads/c26ef467-7e18-4cb5-91f6-88447aa4f7eb.png"
-    },
-    {
-      id: 8,
-      name: "Borcelle Tradicional",
-      nameLocal: "Doçura Ancestral",
-      description: "Tradicional borcelle angolano com receita familiar passada de geração em geração",
-      category: "tradicional",
-      price: "1.800 Kz",
-      image: "/lovable-uploads/32e96a36-2049-4c5e-9424-e3c0beb8e999.png"
-    },
-    {
-      id: 9,
-      name: "Polpa de Manga",
-      nameLocal: "Manga Glace",
-      description: "Polpa natural de manga 100% pura, gelada e refrescante",
-      category: "frutado",
-      price: "2.000 Kz",
-      image: "/lovable-uploads/32e96a36-2049-4c5e-9424-e3c0beb8e999.png"
-    },
-    {
-      id: 10,
-      name: "Que tal um açaí hoje?",
-      nameLocal: "Açaí Especial",
-      description: "Açaí premium com cobertura especial e frutas frescas selecionadas",
-      category: "exotico",
-      price: "3.000 Kz",
-      image: "/lovable-uploads/c26ef467-7e18-4cb5-91f6-88447aa4f7eb.png"
-    }
-  ];
-
   const filteredFlavors = activeFilter === 'todos' 
-    ? flavors 
-    : flavors.filter(flavor => flavor.category === activeFilter);
+    ? products 
+    : products.filter(flavor => flavor.category === activeFilter);
 
   return (
     <section id="sabores" className="py-20 bg-white relative overflow-hidden">
