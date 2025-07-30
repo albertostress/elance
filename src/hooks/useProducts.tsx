@@ -101,6 +101,15 @@ const defaultProducts: Product[] = [
     category: "exotico",
     price: "3.000 Kz",
     image: "/lovable-uploads/c26ef467-7e18-4cb5-91f6-88447aa4f7eb.png"
+  },
+  {
+    id: 11,
+    name: "Gelado de Manga",
+    nameLocal: "Manga Tropical",
+    description: "Refrescante. Natural. Tropical. Experimente o nosso delicioso gelado de manga",
+    category: "frutado",
+    price: "2.300 Kz",
+    image: "/lovable-uploads/626bad5e-9f4a-48cc-afff-74f6c2b51c5d.png"
   }
 ];
 
