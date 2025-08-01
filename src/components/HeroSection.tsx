@@ -32,13 +32,13 @@ const HeroSection = () => {
           <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-foreground mb-8 leading-tight">
               ELANCE
-              <span className="text-primary block">Cafeteria</span>
-              Premium
+              <span className="text-primary block">Geladaria</span>
+              e Casa de Chá
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
-              A melhor cafeteria de Luanda com gelados artesanais, cafés quentes, 
-              chocolates especiais e muito mais. Qualidade premium, sabores únicos.
+              A melhor geladaria e casa de chá de Luanda com gelados artesanais, cafés quentes, 
+              chocolates especiais, chás únicos e muito mais. Qualidade premium, sabores únicos.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -55,9 +55,9 @@ const HeroSection = () => {
                 variant="outline" 
                 size="lg"
                 className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-10 py-4 rounded-full font-medium transition-all duration-300 text-lg"
-                onClick={() => document.getElementById('loja')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                Visite a ELANCE Cafeteria
+                Visite a ELANCE
               </Button>
             </div>
           </div>

@@ -42,8 +42,8 @@ const MenuGallery = () => {
             Nosso Menu Premium
           </h2>
           <p className="text-lg text-earth-600 max-w-2xl mx-auto mb-8">
-            Desde gelados artesanais até cafés aromáticos e chocolates especiais. 
-            Uma experiência gastronómica única na ELANCE Cafeteria.
+            Desde gelados artesanais até cafés aromáticos, chocolates especiais e chás únicos. 
+            Uma experiência gastronómica única na ELANCE Geladaria e Casa de Chá.
           </p>
 
           {/* Filtros */}

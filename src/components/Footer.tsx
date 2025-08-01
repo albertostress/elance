@@ -11,11 +11,11 @@ const Footer = () => {
           {/* Logo e descrição */}
           <div className="md:col-span-2">
             <h3 className="text-2xl font-serif font-bold text-white mb-4">
-              ELANCE Cafeteria
+              ELANCE Geladaria e Casa de Chá
             </h3>
             <p className="text-earth-300 leading-relaxed mb-6 max-w-md">
-              A melhor cafeteria de Luanda com gelados artesanais, cafés premium, 
-              chocolates especiais e muito mais. Qualidade e sabor únicos.
+              A melhor geladaria e casa de chá de Luanda com gelados artesanais, cafés premium, 
+              chocolates especiais, chás únicos e muito mais. Qualidade e sabor únicos.
             </p>
             
             <div className="flex space-x-4">
@@ -82,7 +82,7 @@ const Footer = () => {
               
               <div>
                 <span className="block">+244 941 693 261</span>
-                <span className="block">elance.100@cafeteria.ao</span>
+                <span className="block">elance.100@geladaria.ao</span>
               </div>
               
               <div>
@@ -98,7 +98,7 @@ const Footer = () => {
         <div className="border-t border-earth-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex items-center space-x-2 text-earth-300 text-sm">
-              <span>© {currentYear} ELANCE Cafeteria. Feito com</span>
+              <span>© {currentYear} ELANCE Geladaria e Casa de Chá. Feito com</span>
               <Heart className="w-4 h-4 text-gold-500 fill-current" />
               <span>em Angola.</span>
             </div>
