@@ -25,7 +25,7 @@ const HeroSection = () => {
         <div className="max-w-4xl mx-auto text-center">
           {/* Logo ELANCE integrado */}
           <div className="animate-fade-in mb-8">
-            <LogoWithoutBg className="w-32 h-32 mx-auto mb-6 opacity-90" />
+            <LogoWithoutBg className="w-48 h-48 mx-auto mb-6 opacity-90" />
           </div>
           
           {/* Conteúdo textual centralizado */}
