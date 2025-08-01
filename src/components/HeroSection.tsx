@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { AngolanPattern1 } from './AngolanPatterns';
+import LogoWithoutBg from './LogoWithoutBg';
 
 const HeroSection = () => {
   return (
@@ -22,8 +23,13 @@ const HeroSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
+          {/* Logo ELANCE integrado */}
+          <div className="animate-fade-in mb-8">
+            <LogoWithoutBg className="w-32 h-32 mx-auto mb-6 opacity-90" />
+          </div>
+          
           {/* Conteúdo textual centralizado */}
-          <div className="animate-fade-in">
+          <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-foreground mb-8 leading-tight">
               Gelados Artesanais
               <span className="text-primary block">Premium</span>
