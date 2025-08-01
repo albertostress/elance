@@ -4,28 +4,28 @@ import { Card, CardContent } from '@/components/ui/card';
 
 const StoreSection = () => {
   const storeInfo = {
-    address: "Rua Major Kanhangulo, 245 - Ingombota, Luanda",
+    address: "Bairro BPC Camama / Luanda",
     hours: [
       { day: "Segunda a Sexta", time: "09h00 - 20h00" },
       { day: "Sábado", time: "09h00 - 21h00" },
       { day: "Domingo", time: "10h00 - 19h00" }
     ],
-    phone: "+244 922 000 000",
-    instagram: "@muxima.gelato"
+    phone: "+244 941 693 261",
+    instagram: "@elance.100"
   };
 
   const storeFeatures = [
     {
-      title: "Ambiente Boutique",
-      description: "Espaço contemporâneo com materiais naturais e design sofisticado"
+      title: "Ambiente Cafeteria",
+      description: "Espaço acolhedor com ambiente moderno e confortável"
     },
     {
-      title: "Degustação Gratuita", 
-      description: "Prove antes de comprar - conhecemos a qualidade dos nossos gelados"
+      title: "Menu Completo", 
+      description: "Cafés, gelados, chocolates quentes e muito mais"
     },
     {
-      title: "Embalagens Exclusivas",
-      description: "Leve para casa em embalagens sustentáveis com design angolano"
+      title: "Qualidade Premium",
+      description: "Ingredientes selecionados e preparação artesanal"
     }
   ];
 
@@ -34,11 +34,11 @@ const StoreSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-earth-900 mb-4">
-            Visite a Nossa Loja
+            Visite a ELANCE Cafeteria
           </h2>
           <p className="text-lg text-earth-600 max-w-2xl mx-auto">
-            Um espaço único em Luanda onde tradição e modernidade se encontram 
-            para criar a experiência perfeita do gelado artesanal.
+            Um espaço único em Luanda onde pode saborear os melhores cafés, 
+            gelados artesanais e especialidades numa atmosfera acolhedora.
           </p>
         </div>
 
@@ -117,7 +117,7 @@ const StoreSection = () => {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img 
                 src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                alt="Interior da loja Muxima Gelato"
+                alt="Interior da ELANCE Cafeteria"
                 className="w-full h-64 object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-earth-900/30 to-transparent"></div>
@@ -127,14 +127,14 @@ const StoreSection = () => {
               <div className="relative rounded-xl overflow-hidden shadow-lg">
                 <img 
                   src="https://images.unsplash.com/photo-1524230572899-a752b3835840?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                  alt="Exterior da loja"
+                  alt="Exterior da cafeteria"
                   className="w-full h-32 object-cover"
                 />
               </div>
               <div className="relative rounded-xl overflow-hidden shadow-lg">
                 <img 
                   src="https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                  alt="Gelados na vitrine"
+                  alt="Produtos na vitrine"
                   className="w-full h-32 object-cover"
                 />
               </div>

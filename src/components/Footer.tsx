@@ -11,11 +11,11 @@ const Footer = () => {
           {/* Logo e descrição */}
           <div className="md:col-span-2">
             <h3 className="text-2xl font-serif font-bold text-white mb-4">
-              Muxima Gelato
+              ELANCE Cafeteria
             </h3>
             <p className="text-earth-300 leading-relaxed mb-6 max-w-md">
-              Gelados artesanais de luxo que celebram a rica cultura angolana. 
-              Cada sabor conta uma história, cada gelado é uma experiência única.
+              A melhor cafeteria de Luanda com gelados artesanais, cafés premium, 
+              chocolates especiais e muito mais. Qualidade e sabor únicos.
             </p>
             
             <div className="flex space-x-4">
@@ -51,8 +51,8 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#sabores" className="text-earth-300 hover:text-gold-400 transition-colors duration-200">
-                  Sabores
+                <a href="#menu" className="text-earth-300 hover:text-gold-400 transition-colors duration-200">
+                  Menu
                 </a>
               </li>
               <li>
@@ -75,14 +75,14 @@ const Footer = () => {
               <div className="flex items-start space-x-2">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <span>
-                  Rua Major Kanhangulo, 245<br />
-                  Ingombota, Luanda
+                  Bairro BPC Camama<br />
+                  Luanda, Angola
                 </span>
               </div>
               
               <div>
-                <span className="block">+244 922 000 000</span>
-                <span className="block">ola@muximagelato.ao</span>
+                <span className="block">+244 941 693 261</span>
+                <span className="block">elance.100@cafeteria.ao</span>
               </div>
               
               <div>
@@ -98,7 +98,7 @@ const Footer = () => {
         <div className="border-t border-earth-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex items-center space-x-2 text-earth-300 text-sm">
-              <span>© {currentYear} Muxima Gelato. Feito com</span>
+              <span>© {currentYear} ELANCE Cafeteria. Feito com</span>
               <Heart className="w-4 h-4 text-gold-500 fill-current" />
               <span>em Angola.</span>
             </div>

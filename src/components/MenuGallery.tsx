@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { AngolanPattern2 } from './AngolanPatterns';
 import { useProducts } from '@/hooks/useProducts';
 
-const FlavorsGallery = () => {
+const MenuGallery = () => {
   const [activeFilter, setActiveFilter] = useState('todos');
   const { products } = useProducts();
 
@@ -13,20 +13,20 @@ const FlavorsGallery = () => {
   console.log('Produtos:', products);
 
   const categories = [
-    { id: 'todos', name: 'Todos os Sabores' },
-    { id: 'frutado', name: 'Frutados' },
-    { id: 'cremoso', name: 'Cremosos' },
-    { id: 'exotico', name: 'Especiais' },
-    { id: 'limitado', name: 'Edição Limitada' },
-    { id: 'tradicional', name: 'Tradicionais' }
+    { id: 'todos', name: 'Todo o Menu' },
+    { id: 'gelados', name: 'Gelados' },
+    { id: 'cafes_quentes', name: 'Cafés Quentes' },
+    { id: 'cafes_gelados', name: 'Cafés Gelados' },
+    { id: 'chocolates', name: 'Chocolates Quentes' },
+    { id: 'especiais', name: 'Especialidades' }
   ];
 
-  const filteredFlavors = activeFilter === 'todos' 
+  const filteredProducts = activeFilter === 'todos' 
     ? products 
-    : products.filter(flavor => flavor.category === activeFilter);
+    : products.filter(product => product.category === activeFilter);
 
   console.log('Filtro ativo:', activeFilter);
-  console.log('Produtos filtrados:', filteredFlavors.length);
+  console.log('Produtos filtrados:', filteredProducts.length);
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     const target = e.target as HTMLImageElement;
@@ -34,7 +34,7 @@ const FlavorsGallery = () => {
   };
 
   return (
-    <section id="sabores" className="py-20 bg-white relative overflow-hidden">
+    <section id="menu" className="py-20 bg-white relative overflow-hidden">
       {/* Padrão angolano de fundo */}
       <AngolanPattern2 className="opacity-4" />
       
@@ -42,11 +42,11 @@ const FlavorsGallery = () => {
         {/* Cabeçalho */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-earth-900 mb-4">
-            Nossos Sabores Premium
+            Nosso Menu Premium
           </h2>
           <p className="text-lg text-earth-600 max-w-2xl mx-auto mb-8">
-            Gelados artesanais feitos com os melhores ingredientes angolanos. 
-            Sabores únicos que celebram a nossa cultura e tradição.
+            Desde gelados artesanais até cafés aromáticos e chocolates especiais. 
+            Uma experiência gastronómica única na ELANCE Cafeteria.
           </p>
 
           {/* Filtros */}
@@ -68,18 +68,18 @@ const FlavorsGallery = () => {
           </div>
         </div>
 
-        {/* Grade de sabores */}
+        {/* Grade de produtos */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredFlavors.map((flavor, index) => (
+          {filteredProducts.map((product, index) => (
             <Card 
-              key={flavor.id}
+              key={product.id}
               className="group hover:shadow-2xl transition-all duration-500 border-0 bg-gradient-to-b from-ivory-50 to-white rounded-2xl overflow-hidden animate-fade-in relative"
               style={{ animationDelay: `${index * 150}ms` }}
             >
               <div className="relative overflow-hidden">
                 <img 
-                  src={flavor.image}
-                  alt={flavor.name}
+                  src={product.image}
+                  alt={product.name}
                   className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-700"
                   onError={handleImageError}
                 />
@@ -87,16 +87,11 @@ const FlavorsGallery = () => {
                 {/* Badges */}
                 <div className="absolute top-4 left-4 right-4 flex justify-between">
                   <span className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-earth-700">
-                    {flavor.price}
+                    {product.price}
                   </span>
-                  {flavor.category === 'limitado' && (
+                  {product.category === 'especiais' && (
                     <span className="bg-gold-600/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-white">
-                      Edição Limitada
-                    </span>
-                  )}
-                  {flavor.category === 'tradicional' && (
-                    <span className="bg-earth-600/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-white">
-                      Tradicional
+                      Especialidade
                     </span>
                   )}
                 </div>
@@ -109,31 +104,33 @@ const FlavorsGallery = () => {
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="text-xl font-serif font-semibold text-earth-900 mb-1">
-                      {flavor.name}
+                      {product.name}
                     </h3>
-                    <p className="text-sm text-gold-600 font-medium">
-                      {flavor.nameLocal}
-                    </p>
+                    {product.nameLocal && (
+                      <p className="text-sm text-gold-600 font-medium">
+                        {product.nameLocal}
+                      </p>
+                    )}
                   </div>
                   <span className="text-lg font-bold text-primary">
-                    {flavor.price}
+                    {product.price}
                   </span>
                 </div>
                 
                 <p className="text-earth-600 text-sm leading-relaxed">
-                  {flavor.description}
+                  {product.description}
                 </p>
 
                 {/* Categoria */}
                 <div className="pt-2">
                   <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
-                    flavor.category === 'frutado' ? 'bg-moss-100 text-moss-700' :
-                    flavor.category === 'cremoso' ? 'bg-earth-100 text-earth-700' :
-                    flavor.category === 'exotico' ? 'bg-gold-100 text-gold-700' :
-                    flavor.category === 'tradicional' ? 'bg-amber-100 text-amber-700' :
+                    product.category === 'gelados' ? 'bg-moss-100 text-moss-700' :
+                    product.category === 'cafes_quentes' ? 'bg-earth-100 text-earth-700' :
+                    product.category === 'cafes_gelados' ? 'bg-gold-100 text-gold-700' :
+                    product.category === 'chocolates' ? 'bg-amber-100 text-amber-700' :
                     'bg-ivory-200 text-earth-800'
                   }`}>
-                    {categories.find(cat => cat.id === flavor.category)?.name}
+                    {categories.find(cat => cat.id === product.category)?.name}
                   </span>
                 </div>
               </CardContent>
@@ -141,10 +138,10 @@ const FlavorsGallery = () => {
           ))}
         </div>
 
-        {filteredFlavors.length === 0 && (
+        {filteredProducts.length === 0 && (
           <div className="text-center py-12">
             <p className="text-earth-500 text-lg">
-              Nenhum sabor encontrado para esta categoria.
+              Nenhum produto encontrado para esta categoria.
             </p>
           </div>
         )}
@@ -153,4 +150,4 @@ const FlavorsGallery = () => {
   );
 };
 
-export default FlavorsGallery;
+export default MenuGallery;

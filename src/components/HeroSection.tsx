@@ -31,23 +31,23 @@ const HeroSection = () => {
           {/* Conteúdo textual centralizado */}
           <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-foreground mb-8 leading-tight">
-              Gelados Artesanais
-              <span className="text-primary block">Premium</span>
-              em Luanda
+              ELANCE
+              <span className="text-primary block">Cafeteria</span>
+              Premium
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
-              Os melhores gelados artesanais de Luanda com sabores únicos e autênticos. 
-              Qualidade premium, sabores inesquecíveis, preços justos.
+              A melhor cafeteria de Luanda com gelados artesanais, cafés quentes, 
+              chocolates especiais e muito mais. Qualidade premium, sabores únicos.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Button 
                 size="lg" 
                 className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-10 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl text-lg"
-                onClick={() => document.getElementById('sabores')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                Ver Sabores
+                Ver Menu
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
               

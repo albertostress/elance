@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 export interface Product {
   id: number;
   name: string;
-  nameLocal: string;
+  nameLocal?: string;
   description: string;
   category: string;
   price: string;
@@ -12,115 +12,185 @@ export interface Product {
 }
 
 const defaultProducts: Product[] = [
+  // Cafés Quentes
   {
     id: 1,
-    name: "Múcua do Bié",
-    nameLocal: "Baobá Premium", 
-    description: "Cremoso gelado de baobá com notas cítricas naturais da região do Bié",
-    category: "frutado",
-    price: "2.500 Kz",
+    name: "Café Expresso",
+    description: "Café expresso encorpado com aroma intenso",
+    category: "cafes_quentes",
+    price: "800 Kz",
     image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
   },
   {
     id: 2,
-    name: "Gengibre do Uíge",
-    nameLocal: "Gengibre das Montanhas",
-    description: "Refrescante gelado com gengibre fresco das montanhas do Uíge",
-    category: "exotico",
-    price: "2.800 Kz",
+    name: "Café Duplo",
+    description: "Dose dupla de café expresso para mais energia",
+    category: "cafes_quentes",
+    price: "1.600 Kz",
     image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
   },
   {
     id: 3,
-    name: "Baunilha do Namibe",
-    nameLocal: "Baunilha do Deserto",
-    description: "Luxuosa baunilha com toque de flor de sal do deserto do Namibe",
-    category: "cremoso",
-    price: "2.200 Kz",
+    name: "Capuccino Cremoso",
+    description: "Café expresso com espuma cremosa de leite vaporizado",
+    category: "cafes_quentes",
+    price: "2.000 Kz",
     image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
   },
   {
     id: 4,
-    name: "Goiaba de Malanje",
-    nameLocal: "Doçura Tropical",
-    description: "Gelado artesanal com goiabas maduras de Malanje, rico e perfumado",
-    category: "frutado",
-    price: "2.400 Kz",
+    name: "Macchiato",
+    description: "Café expresso com uma pitada de espuma de leite",
+    category: "cafes_quentes",
+    price: "2.000 Kz",
     image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
   },
   {
     id: 5,
-    name: "Café do Kwanza Sul", 
-    nameLocal: "Robusta Premium",
-    description: "Intenso gelado de café com grãos selecionados do planalto central",
-    category: "cremoso",
-    price: "2.600 Kz",
+    name: "Mocha",
+    description: "Café com chocolate quente e espuma cremosa",
+    category: "cafes_quentes",
+    price: "3.000 Kz",
     image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
   },
   {
     id: 6,
-    name: "Mel Silvestre da Lunda",
-    nameLocal: "Ouro Doce",
-    description: "Edição especial com mel silvestre coletado nas florestas da Lunda Norte",
-    category: "limitado",
-    price: "3.200 Kz",
+    name: "Galão",
+    description: "Café suave com muito leite cremoso",
+    category: "cafes_quentes",
+    price: "2.000 Kz",
+    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+  },
+
+  // Cafés Gelados
+  {
+    id: 7,
+    name: "Affogato",
+    description: "Gelado de baunilha com café expresso quente por cima",
+    category: "cafes_gelados",
+    price: "3.500 Kz",
     image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
   },
   {
-    id: 7,
-    name: "Açaí Energético",
-    nameLocal: "Vamos de Açaí",
-    description: "Cremoso açaí energético com frutas tropicais e granola crocante",
-    category: "frutado",
-    price: "2.800 Kz",
-    image: "/lovable-uploads/c26ef467-7e18-4cb5-91f6-88447aa4f7eb.png"
-  },
-  {
     id: 8,
-    name: "Borcelle Tradicional",
-    nameLocal: "Doçura Ancestral",
-    description: "Tradicional borcelle angolano com receita familiar passada de geração em geração",
-    category: "tradicional",
-    price: "1.800 Kz",
-    image: "/lovable-uploads/32e96a36-2049-4c5e-9424-e3c0beb8e999.png"
+    name: "Shakerato",
+    description: "Café gelado agitado com gelo e açúcar",
+    category: "cafes_gelados",
+    price: "2.100 Kz",
+    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
   },
   {
     id: 9,
-    name: "Polpa de Manga",
-    nameLocal: "Manga Glace",
-    description: "Polpa natural de manga 100% pura, gelada e refrescante",
-    category: "frutado",
+    name: "Frappé Coffee",
+    description: "Café gelado batido com gelo e leite cremoso",
+    category: "cafes_gelados",
     price: "2.000 Kz",
-    image: "/lovable-uploads/32e96a36-2049-4c5e-9424-e3c0beb8e999.png"
+    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
   },
   {
     id: 10,
-    name: "Que tal um açaí hoje?",
-    nameLocal: "Açaí Especial",
-    description: "Açaí premium com cobertura especial e frutas frescas selecionadas",
-    category: "exotico",
-    price: "3.000 Kz",
-    image: "/lovable-uploads/c26ef467-7e18-4cb5-91f6-88447aa4f7eb.png"
+    name: "Latte Gelado",
+    description: "Café com leite servido gelado com gelo",
+    category: "cafes_gelados",
+    price: "2.000 Kz",
+    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
   },
   {
     id: 11,
+    name: "Expresso Tonic",
+    description: "Café expresso com água tônica e limão",
+    category: "cafes_gelados",
+    price: "2.000 Kz",
+    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+  },
+
+  // Chocolates Quentes
+  {
+    id: 12,
+    name: "Chocolate Quentes Italiano",
+    description: "Chocolate, leite, açúcar, cacau, baunilha",
+    category: "chocolates",
+    price: "3.500 Kz",
+    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    id: 13,
+    name: "Chocolate Quentes Mexicano",
+    description: "Chocolate, leite, açúcar, cacau, baunilha, picante",
+    category: "chocolates",
+    price: "3.500 Kz",
+    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    id: 14,
+    name: "Chocolate Quentes Grego",
+    description: "Chocolate, leite condensado, água, cacau, baunilha",
+    category: "chocolates",
+    price: "3.500 Kz",
+    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    id: 15,
+    name: "Chocolate Quentes ELANCE",
+    description: "Chocolate, leite creme, cacau, café, licor de café",
+    category: "chocolates",
+    price: "3.800 Kz",
+    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+  },
+
+  // Gelados
+  {
+    id: 16,
     name: "Gelado de Manga",
-    nameLocal: "Manga Tropical",
-    description: "Refrescante. Natural. Tropical. Experimente o nosso delicioso gelado de manga",
-    category: "frutado",
-    price: "2.300 Kz",
+    nameLocal: "Doçura Tropical",
+    description: "Refrescante gelado natural de manga madura",
+    category: "gelados",
+    price: "2.500 Kz",
     image: "/lovable-uploads/36e65ac6-eb88-4165-9f22-28fdd7ae3fab.png"
+  },
+  {
+    id: 17,
+    name: "Frutos Vermelho",
+    description: "Mix de frutas vermelhas frescas em gelado cremoso",
+    category: "gelados",
+    price: "2.500 Kz",
+    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    id: 18,
+    name: "Gelado de Limão",
+    description: "Refrescante gelado cítrico de limão natural",
+    category: "gelados",
+    price: "2.500 Kz",
+    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    id: 19,
+    name: "Gelado de Chocolate",
+    description: "Rico gelado de chocolate belga premium",
+    category: "gelados",
+    price: "2.500 Kz",
+    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    id: 20,
+    name: "Gelado de Múcua",
+    nameLocal: "Baobá Premium",
+    description: "Tradicional gelado de múcua com sabor único angolano",
+    category: "gelados",
+    price: "2.800 Kz",
+    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
   }
 ];
 
 export const useProducts = () => {
   const [products, setProducts] = useState<Product[]>(() => {
-    const savedProducts = localStorage.getItem('gelados-products');
+    const savedProducts = localStorage.getItem('elance-products');
     return savedProducts ? JSON.parse(savedProducts) : defaultProducts;
   });
 
   useEffect(() => {
-    localStorage.setItem('gelados-products', JSON.stringify(products));
+    localStorage.setItem('elance-products', JSON.stringify(products));
   }, [products]);
 
   const addProduct = (product: Omit<Product, 'id'>) => {

@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -24,11 +25,11 @@ const ProductManager = () => {
   });
 
   const categories = [
-    { value: 'frutado', label: 'Frutados' },
-    { value: 'cremoso', label: 'Cremosos' },
-    { value: 'exotico', label: 'Especiais' },
-    { value: 'limitado', label: 'Edição Limitada' },
-    { value: 'tradicional', label: 'Tradicionais' }
+    { value: 'gelados', label: 'Gelados' },
+    { value: 'cafes_quentes', label: 'Cafés Quentes' },
+    { value: 'cafes_gelados', label: 'Cafés Gelados' },
+    { value: 'chocolates', label: 'Chocolates Quentes' },
+    { value: 'especiais', label: 'Especialidades' }
   ];
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
@@ -40,7 +41,7 @@ const ProductManager = () => {
     setIsEditing(product.id);
     setFormData({
       name: product.name,
-      nameLocal: product.nameLocal,
+      nameLocal: product.nameLocal || '',
       description: product.description,
       category: product.category,
       price: product.price,
@@ -85,7 +86,7 @@ const ProductManager = () => {
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-serif font-bold text-earth-900">
-          Gestor de Produtos
+          Gestor de Menu
         </h1>
         <Button onClick={handleAdd} className="bg-gold-600 hover:bg-gold-700">
           <Plus className="w-4 h-4 mr-2" />
@@ -108,16 +109,16 @@ const ProductManager = () => {
                   id="name"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  placeholder="Ex: Múcua do Bié"
+                  placeholder="Ex: Café Expresso"
                 />
               </div>
               <div>
-                <Label htmlFor="nameLocal">Nome Local</Label>
+                <Label htmlFor="nameLocal">Nome Local (opcional)</Label>
                 <Input
                   id="nameLocal"
                   value={formData.nameLocal}
                   onChange={(e) => setFormData({...formData, nameLocal: e.target.value})}
-                  placeholder="Ex: Baobá Premium"
+                  placeholder="Ex: Café Tradicional"
                 />
               </div>
             </div>
@@ -219,9 +220,11 @@ const ProductManager = () => {
                   <h3 className="font-serif font-semibold text-earth-900">
                     {product.name}
                   </h3>
-                  <p className="text-sm text-gold-600 font-medium">
-                    {product.nameLocal}
-                  </p>
+                  {product.nameLocal && (
+                    <p className="text-sm text-gold-600 font-medium">
+                      {product.nameLocal}
+                    </p>
+                  )}
                 </div>
                 <span className="text-lg font-bold text-primary">
                   {product.price}
@@ -233,10 +236,10 @@ const ProductManager = () => {
               </p>
 
               <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
-                product.category === 'frutado' ? 'bg-moss-100 text-moss-700' :
-                product.category === 'cremoso' ? 'bg-earth-100 text-earth-700' :
-                product.category === 'exotico' ? 'bg-gold-100 text-gold-700' :
-                product.category === 'tradicional' ? 'bg-amber-100 text-amber-700' :
+                product.category === 'gelados' ? 'bg-moss-100 text-moss-700' :
+                product.category === 'cafes_quentes' ? 'bg-earth-100 text-earth-700' :
+                product.category === 'cafes_gelados' ? 'bg-gold-100 text-gold-700' :
+                product.category === 'chocolates' ? 'bg-amber-100 text-amber-700' :
                 'bg-ivory-200 text-earth-800'
               }`}>
                 {categories.find(cat => cat.value === product.category)?.label}
