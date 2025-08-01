@@ -6,14 +6,13 @@ import { AngolanPattern2 } from './AngolanPatterns';
 import { useProducts } from '@/hooks/useProducts';
 
 const MenuGallery = () => {
-  const [activeFilter, setActiveFilter] = useState('todos');
+  const [activeFilter, setActiveFilter] = useState('gelados');
   const { products } = useProducts();
 
   console.log('Total produtos carregados:', products.length);
   console.log('Produtos:', products);
 
   const categories = [
-    { id: 'todos', name: 'Todo o Menu' },
     { id: 'gelados', name: 'Gelados' },
     { id: 'cafes_quentes', name: 'Cafés Quentes' },
     { id: 'cafes_gelados', name: 'Cafés Gelados' },
@@ -21,9 +20,7 @@ const MenuGallery = () => {
     { id: 'especiais', name: 'Especialidades' }
   ];
 
-  const filteredProducts = activeFilter === 'todos' 
-    ? products 
-    : products.filter(product => product.category === activeFilter);
+  const filteredProducts = products.filter(product => product.category === activeFilter);
 
   console.log('Filtro ativo:', activeFilter);
   console.log('Produtos filtrados:', filteredProducts.length);
