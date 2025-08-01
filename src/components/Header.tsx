@@ -9,6 +9,7 @@ const Header = () => {
   const navItems = [
     { name: 'Início', href: '#inicio' },
     { name: 'Sobre Nós', href: '#sobre' },
+    { name: 'Sabores', href: '#sabores' },
     { name: 'Nossa Loja', href: '#loja' },
     { name: 'Contacto', href: '#contacto' },
   ];
@@ -21,7 +22,7 @@ const Header = () => {
           <div className="flex items-center">
             <img 
               src="/lovable-uploads/83f76c71-b8b4-4137-9d66-3c4232469002.png" 
-              alt="ELANCE Cafeteria" 
+              alt="Muxima Gelato" 
               className="h-10 w-auto mix-blend-multiply"
             />
           </div>
