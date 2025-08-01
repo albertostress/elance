@@ -183,14 +183,60 @@ const defaultProducts: Product[] = [
   }
 ];
 
+// Função auxiliar para tentar salvar no localStorage com tratamento de erro
+const safeSetItem = (key: string, value: string): boolean => {
+  try {
+    localStorage.setItem(key, value);
+    return true;
+  } catch (error) {
+    console.warn('Failed to save to localStorage:', error);
+    // Se falhar, tenta limpar dados antigos e tentar novamente
+    try {
+      localStorage.removeItem(key);
+      localStorage.setItem(key, value);
+      return true;
+    } catch (secondError) {
+      console.error('localStorage completely full, using default data only:', secondError);
+      return false;
+    }
+  }
+};
+
+// Função auxiliar para obter dados do localStorage
+const safeGetItem = (key: string): string | null => {
+  try {
+    return localStorage.getItem(key);
+  } catch (error) {
+    console.warn('Failed to read from localStorage:', error);
+    return null;
+  }
+};
+
 export const useProducts = () => {
   const [products, setProducts] = useState<Product[]>(() => {
-    const savedProducts = localStorage.getItem('elance-products');
-    return savedProducts ? JSON.parse(savedProducts) : defaultProducts;
+    const savedProducts = safeGetItem('elance-products');
+    if (savedProducts) {
+      try {
+        const parsed = JSON.parse(savedProducts);
+        console.log('Produtos carregados do localStorage:', parsed.length);
+        return parsed;
+      } catch (error) {
+        console.warn('Failed to parse saved products, using defaults:', error);
+      }
+    }
+    console.log('Usando produtos padrão:', defaultProducts.length);
+    return defaultProducts;
   });
 
   useEffect(() => {
-    localStorage.setItem('elance-products', JSON.stringify(products));
+    const dataToSave = JSON.stringify(products);
+    const success = safeSetItem('elance-products', dataToSave);
+    
+    if (success) {
+      console.log('Produtos salvos no localStorage:', products.length);
+    } else {
+      console.warn('Não foi possível salvar no localStorage, dados mantidos apenas na sessão');
+    }
   }, [products]);
 
   const addProduct = (product: Omit<Product, 'id'>) => {
@@ -198,16 +244,19 @@ export const useProducts = () => {
       ...product,
       id: Math.max(...products.map(p => p.id), 0) + 1
     };
+    console.log('Adicionando produto:', newProduct.name);
     setProducts([...products, newProduct]);
   };
 
   const updateProduct = (id: number, updatedProduct: Omit<Product, 'id'>) => {
+    console.log('Atualizando produto ID:', id);
     setProducts(products.map(product => 
       product.id === id ? { ...updatedProduct, id } : product
     ));
   };
 
   const deleteProduct = (id: number) => {
+    console.log('Deletando produto ID:', id);
     setProducts(products.filter(product => product.id !== id));
   };
 
