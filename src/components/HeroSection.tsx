@@ -50,15 +50,6 @@ const HeroSection = () => {
                 Ver Menu
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
-              
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-10 py-4 rounded-full font-medium transition-all duration-300 text-lg"
-                onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
-              >
-                Visite a ELANCE
-              </Button>
             </div>
           </div>
         </div>
