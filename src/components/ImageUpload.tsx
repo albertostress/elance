@@ -16,29 +16,89 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange, label = "Ima
   const [isValidating, setIsValidating] = useState(false);
   const [urlError, setUrlError] = useState<string>('');
 
-  const validateImageUrl = async (url: string): Promise<boolean> => {
-    if (!url) return false;
+  const extractImgurId = (url: string): string | null => {
+    // Remove any trailing fragments or query parameters
+    const cleanUrl = url.split('#')[0].split('?')[0];
+    
+    // Gallery URL: https://imgur.com/gallery/love-zMvnMwN
+    const galleryMatch = cleanUrl.match(/imgur\.com\/gallery\/([a-zA-Z0-9]+)/);
+    if (galleryMatch) {
+      return galleryMatch[1];
+    }
+    
+    // Simple URL: https://imgur.com/zMvnMwN
+    const simpleMatch = cleanUrl.match(/imgur\.com\/([a-zA-Z0-9]+)$/);
+    if (simpleMatch) {
+      return simpleMatch[1];
+    }
+    
+    // Direct URL: https://i.imgur.com/zMvnMwN.jpg
+    const directMatch = cleanUrl.match(/i\.imgur\.com\/([a-zA-Z0-9]+)/);
+    if (directMatch) {
+      return directMatch[1];
+    }
+    
+    return null;
+  };
+
+  const buildDirectUrl = (imgurId: string, extension: string = 'jpg'): string => {
+    return `https://i.imgur.com/${imgurId}.${extension}`;
+  };
+
+  const testImageUrl = (url: string): Promise<boolean> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+      img.src = url;
+    });
+  };
+
+  const validateImgurUrl = async (url: string): Promise<string | null> => {
+    if (!url) return null;
     
     // Check if it's a valid URL format
     try {
       new URL(url);
     } catch {
       setUrlError('URL inválida');
-      return false;
+      return null;
     }
 
-    // Check if it's an image URL (basic check)
-    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
-    const hasImageExtension = imageExtensions.some(ext => 
-      url.toLowerCase().includes(ext)
-    );
+    // Check if it contains imgur.com
+    if (!url.includes('imgur.com')) {
+      setUrlError('URL deve ser do Imgur (imgur.com)');
+      return null;
+    }
+
+    // If it's already a direct link, test it
+    if (url.includes('i.imgur.com')) {
+      const isValid = await testImageUrl(url);
+      if (isValid) {
+        return url;
+      }
+    }
+
+    // Try to extract Imgur ID and build direct URLs
+    const imgurId = extractImgurId(url);
+    if (!imgurId) {
+      setUrlError('Não foi possível extrair o ID da imagem do Imgur');
+      return null;
+    }
+
+    // Try different image extensions
+    const extensions = ['jpg', 'png', 'gif', 'webp'];
     
-    if (!hasImageExtension) {
-      setUrlError('URL deve ser de uma imagem (.jpg, .png, .gif, .webp)');
-      return false;
+    for (const ext of extensions) {
+      const directUrl = buildDirectUrl(imgurId, ext);
+      const isValid = await testImageUrl(directUrl);
+      if (isValid) {
+        return directUrl;
+      }
     }
 
-    return true;
+    setUrlError('Não foi possível carregar a imagem do link fornecido');
+    return null;
   };
 
   const handleUrlChange = async (newUrl: string) => {
@@ -52,10 +112,10 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange, label = "Ima
 
     setIsValidating(true);
     
-    const isValid = await validateImageUrl(newUrl);
+    const validUrl = await validateImgurUrl(newUrl);
     
-    if (isValid) {
-      onChange(newUrl);
+    if (validUrl) {
+      onChange(validUrl);
     }
     
     setIsValidating(false);
@@ -93,10 +153,10 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange, label = "Ima
         <div className="border-2 border-dashed border-gray-300 rounded-md p-6 text-center">
           <Image className="w-8 h-8 mx-auto text-gray-400 mb-2" />
           <p className="text-sm text-gray-600 mb-2">
-            Cole o link da imagem do Imgur
+            Cole qualquer link do Imgur
           </p>
           <p className="text-xs text-gray-500">
-            Exemplo: https://i.imgur.com/exemplo.jpg
+            Aceita links de galeria, diretos ou simples
           </p>
         </div>
       )}
@@ -105,7 +165,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange, label = "Ima
         <div className="flex gap-2">
           <Input
             type="url"
-            placeholder="Cole o link do Imgur aqui..."
+            placeholder="Cole qualquer link do Imgur aqui..."
             value={urlInput}
             onChange={(e) => handleUrlChange(e.target.value)}
             disabled={isValidating}
@@ -128,18 +188,20 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange, label = "Ima
         )}
         
         {isValidating && (
-          <p className="text-sm text-gray-500">Validando imagem...</p>
+          <p className="text-sm text-gray-500">Processando link do Imgur...</p>
         )}
       </div>
 
       <div className="bg-blue-50 border border-blue-200 rounded-md p-3">
-        <p className="text-xs text-blue-700 font-medium mb-2">Como usar:</p>
-        <ol className="text-xs text-blue-600 space-y-1">
-          <li>1. Faça upload da imagem no <a href="https://imgur.com" target="_blank" rel="noopener noreferrer" className="underline">imgur.com</a></li>
-          <li>2. Clique com botão direito na imagem</li>
-          <li>3. Selecione "Copiar endereço da imagem"</li>
-          <li>4. Cole o link aqui</li>
-        </ol>
+        <p className="text-xs text-blue-700 font-medium mb-2">Links aceitos do Imgur:</p>
+        <ul className="text-xs text-blue-600 space-y-1">
+          <li>• Link de galeria: https://imgur.com/gallery/exemplo</li>
+          <li>• Link direto: https://i.imgur.com/exemplo.jpg</li>
+          <li>• Link simples: https://imgur.com/exemplo</li>
+        </ul>
+        <p className="text-xs text-blue-600 mt-2">
+          O sistema irá converter automaticamente para o link direto da imagem.
+        </p>
       </div>
     </div>
   );
