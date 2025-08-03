@@ -47,7 +47,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange, label = "Ima
 
   const testImageUrl = (url: string): Promise<boolean> => {
     return new Promise((resolve) => {
-      const img = new Image();
+      const img = document.createElement('img');
       img.onload = () => resolve(true);
       img.onerror = () => resolve(false);
       img.src = url;
