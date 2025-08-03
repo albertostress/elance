@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 
 export interface Product {
@@ -10,6 +9,8 @@ export interface Product {
   price: string;
   image: string;
   imagePosition?: 'center' | 'top' | 'bottom' | 'left' | 'right';
+  verticalPosition?: number;
+  horizontalPosition?: number;
 }
 
 const defaultProducts: Product[] = [

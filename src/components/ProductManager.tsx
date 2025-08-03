@@ -21,7 +21,9 @@ const ProductManager = () => {
     category: '',
     price: '',
     image: '',
-    imagePosition: 'center' as 'center' | 'top' | 'bottom' | 'left' | 'right'
+    imagePosition: 'center' as 'center' | 'top' | 'bottom' | 'left' | 'right',
+    verticalPosition: 50,
+    horizontalPosition: 50
   });
 
   const categories = [
@@ -35,6 +37,15 @@ const ProductManager = () => {
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     const target = e.target as HTMLImageElement;
     target.src = "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80";
+  };
+
+  const getImageStyle = (product: Product) => {
+    if (product.verticalPosition !== undefined && product.horizontalPosition !== undefined) {
+      return {
+        objectPosition: `${product.horizontalPosition}% ${product.verticalPosition}%`
+      };
+    }
+    return getImagePositionClass(product.imagePosition);
   };
 
   const getImagePositionClass = (position?: string) => {
@@ -56,7 +67,9 @@ const ProductManager = () => {
       category: product.category,
       price: product.price,
       image: product.image,
-      imagePosition: product.imagePosition || 'center'
+      imagePosition: product.imagePosition || 'center',
+      verticalPosition: product.verticalPosition || 50,
+      horizontalPosition: product.horizontalPosition || 50
     });
   };
 
@@ -85,7 +98,9 @@ const ProductManager = () => {
       category: '',
       price: '',
       image: '',
-      imagePosition: 'center'
+      imagePosition: 'center',
+      verticalPosition: 50,
+      horizontalPosition: 50
     });
   };
 
@@ -180,8 +195,10 @@ const ProductManager = () => {
               <ImageUpload
                 value={formData.image}
                 onChange={(url) => setFormData({...formData, image: url})}
-                imagePosition={formData.imagePosition}
-                onImagePositionChange={(position) => setFormData({...formData, imagePosition: position})}
+                verticalPosition={formData.verticalPosition}
+                horizontalPosition={formData.horizontalPosition}
+                onVerticalPositionChange={(value) => setFormData({...formData, verticalPosition: value})}
+                onHorizontalPositionChange={(value) => setFormData({...formData, horizontalPosition: value})}
                 label="Imagem do Produto"
               />
             </div>
@@ -205,7 +222,11 @@ const ProductManager = () => {
               <img
                 src={product.image}
                 alt={product.name}
-                className={`w-full h-48 object-cover rounded-t-lg ${getImagePositionClass(product.imagePosition)}`}
+                className="w-full h-48 object-cover rounded-t-lg"
+                style={product.verticalPosition !== undefined && product.horizontalPosition !== undefined 
+                  ? { objectPosition: `${product.horizontalPosition}% ${product.verticalPosition}%` }
+                  : undefined
+                }
                 onError={handleImageError}
               />
               <div className="absolute top-2 right-2 flex gap-2">

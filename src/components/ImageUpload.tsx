@@ -10,19 +10,31 @@ interface ImageUploadProps {
   onChange: (url: string) => void;
   imagePosition?: 'center' | 'top' | 'bottom' | 'left' | 'right';
   onImagePositionChange?: (position: 'center' | 'top' | 'bottom' | 'left' | 'right') => void;
+  verticalPosition?: number;
+  horizontalPosition?: number;
+  onVerticalPositionChange?: (value: number) => void;
+  onHorizontalPositionChange?: (value: number) => void;
   label?: string;
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({ 
   value, 
   onChange, 
-  imagePosition = 'center',
-  onImagePositionChange,
+  verticalPosition = 50,
+  horizontalPosition = 50,
+  onVerticalPositionChange,
+  onHorizontalPositionChange,
   label = "Imagem" 
 }) => {
   const [urlInput, setUrlInput] = useState<string>(value);
   const [isValidating, setIsValidating] = useState(false);
   const [urlError, setUrlError] = useState<string>('');
+
+  const getImageStyle = () => {
+    return {
+      objectPosition: `${horizontalPosition}% ${verticalPosition}%`
+    };
+  };
 
   const extractImgurId = (url: string): string | null => {
     // Remove any trailing fragments or query parameters
@@ -144,13 +156,8 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           <img
             src={value}
             alt="Preview"
-            className={`w-full h-32 object-cover rounded-md border ${
-              imagePosition === 'center' ? 'object-center' :
-              imagePosition === 'top' ? 'object-top' :
-              imagePosition === 'bottom' ? 'object-bottom' :
-              imagePosition === 'left' ? 'object-left' :
-              'object-right'
-            }`}
+            className="w-full h-32 object-cover rounded-md border"
+            style={getImageStyle()}
             onError={() => setUrlError('Erro ao carregar imagem')}
           />
           <Button
@@ -206,11 +213,13 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
         )}
       </div>
 
-      {value && onImagePositionChange && (
+      {value && (
         <ImagePosition
-          value={imagePosition}
-          onChange={onImagePositionChange}
           imageUrl={value}
+          verticalPosition={verticalPosition}
+          horizontalPosition={horizontalPosition}
+          onVerticalChange={onVerticalPositionChange}
+          onHorizontalChange={onHorizontalPositionChange}
         />
       )}
 

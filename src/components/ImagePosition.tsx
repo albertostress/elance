@@ -1,27 +1,35 @@
 
 import React from 'react';
-import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { MoveVertical, MoveHorizontal, Circle, ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Slider } from '@/components/ui/slider';
+import { MoveVertical, MoveHorizontal } from 'lucide-react';
 
 interface ImagePositionProps {
   value: 'center' | 'top' | 'bottom' | 'left' | 'right';
   onChange: (position: 'center' | 'top' | 'bottom' | 'left' | 'right') => void;
   imageUrl?: string;
+  verticalPosition?: number;
+  horizontalPosition?: number;
+  onVerticalChange?: (value: number) => void;
+  onHorizontalChange?: (value: number) => void;
 }
 
-const ImagePosition: React.FC<ImagePositionProps> = ({ value, onChange, imageUrl }) => {
-  const positions = [
-    { key: 'center', label: 'Centro', icon: Circle, class: 'object-center' },
-    { key: 'top', label: 'Topo', icon: ArrowUp, class: 'object-top' },
-    { key: 'bottom', label: 'Embaixo', icon: ArrowDown, class: 'object-bottom' },
-    { key: 'left', label: 'Esquerda', icon: ArrowLeft, class: 'object-left' },
-    { key: 'right', label: 'Direita', icon: ArrowRight, class: 'object-right' },
-  ] as const;
+const ImagePosition: React.FC<ImagePositionProps> = ({ 
+  imageUrl,
+  verticalPosition = 50,
+  horizontalPosition = 50,
+  onVerticalChange,
+  onHorizontalChange
+}) => {
+  const getObjectPositionStyle = () => {
+    return {
+      objectPosition: `${horizontalPosition}% ${verticalPosition}%`
+    };
+  };
 
   return (
-    <div className="space-y-3">
-      <Label className="text-sm font-medium">Posição da Imagem</Label>
+    <div className="space-y-4">
+      <Label className="text-sm font-medium">Ajustar Posição da Imagem</Label>
       
       {imageUrl && (
         <div className="bg-gray-50 p-3 rounded-md">
@@ -30,29 +38,55 @@ const ImagePosition: React.FC<ImagePositionProps> = ({ value, onChange, imageUrl
             <img
               src={imageUrl}
               alt="Preview"
-              className={`w-full h-full object-cover ${positions.find(p => p.key === value)?.class || 'object-center'}`}
+              className="w-full h-full object-cover"
+              style={getObjectPositionStyle()}
             />
           </div>
         </div>
       )}
       
-      <div className="grid grid-cols-5 gap-2">
-        {positions.map((position) => {
-          const IconComponent = position.icon;
-          return (
-            <Button
-              key={position.key}
-              type="button"
-              variant={value === position.key ? "default" : "outline"}
-              size="sm"
-              onClick={() => onChange(position.key)}
-              className="flex flex-col items-center gap-1 h-auto py-2"
-            >
-              <IconComponent className="w-4 h-4" />
-              <span className="text-xs">{position.label}</span>
-            </Button>
-          );
-        })}
+      <div className="space-y-4">
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <MoveVertical className="w-4 h-4 text-gray-600" />
+            <Label className="text-sm">Posição Vertical</Label>
+            <span className="text-xs text-gray-500">{verticalPosition}%</span>
+          </div>
+          <Slider
+            value={[verticalPosition]}
+            onValueChange={(value) => onVerticalChange?.(value[0])}
+            max={100}
+            min={0}
+            step={1}
+            className="w-full"
+          />
+          <div className="flex justify-between text-xs text-gray-400">
+            <span>Topo</span>
+            <span>Centro</span>
+            <span>Embaixo</span>
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <MoveHorizontal className="w-4 h-4 text-gray-600" />
+            <Label className="text-sm">Posição Horizontal</Label>
+            <span className="text-xs text-gray-500">{horizontalPosition}%</span>
+          </div>
+          <Slider
+            value={[horizontalPosition]}
+            onValueChange={(value) => onHorizontalChange?.(value[0])}
+            max={100}
+            min={0}
+            step={1}
+            className="w-full"
+          />
+          <div className="flex justify-between text-xs text-gray-400">
+            <span>Esquerda</span>
+            <span>Centro</span>
+            <span>Direita</span>
+          </div>
+        </div>
       </div>
     </div>
   );
