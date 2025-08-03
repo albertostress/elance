@@ -1,17 +1,25 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Link, X, Image, AlertCircle } from 'lucide-react';
+import ImagePosition from './ImagePosition';
 
 interface ImageUploadProps {
   value: string;
   onChange: (url: string) => void;
+  imagePosition?: 'center' | 'top' | 'bottom' | 'left' | 'right';
+  onImagePositionChange?: (position: 'center' | 'top' | 'bottom' | 'left' | 'right') => void;
   label?: string;
 }
 
-const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange, label = "Imagem" }) => {
+const ImageUpload: React.FC<ImageUploadProps> = ({ 
+  value, 
+  onChange, 
+  imagePosition = 'center',
+  onImagePositionChange,
+  label = "Imagem" 
+}) => {
   const [urlInput, setUrlInput] = useState<string>(value);
   const [isValidating, setIsValidating] = useState(false);
   const [urlError, setUrlError] = useState<string>('');
@@ -128,7 +136,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange, label = "Ima
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-4">
       <Label>{label}</Label>
       
       {value ? (
@@ -136,7 +144,13 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange, label = "Ima
           <img
             src={value}
             alt="Preview"
-            className="w-full h-32 object-cover rounded-md border"
+            className={`w-full h-32 object-cover rounded-md border ${
+              imagePosition === 'center' ? 'object-center' :
+              imagePosition === 'top' ? 'object-top' :
+              imagePosition === 'bottom' ? 'object-bottom' :
+              imagePosition === 'left' ? 'object-left' :
+              'object-right'
+            }`}
             onError={() => setUrlError('Erro ao carregar imagem')}
           />
           <Button
@@ -191,6 +205,14 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange, label = "Ima
           <p className="text-sm text-gray-500">Processando link do Imgur...</p>
         )}
       </div>
+
+      {value && onImagePositionChange && (
+        <ImagePosition
+          value={imagePosition}
+          onChange={onImagePositionChange}
+          imageUrl={value}
+        />
+      )}
 
       <div className="bg-blue-50 border border-blue-200 rounded-md p-3">
         <p className="text-xs text-blue-700 font-medium mb-2">Links aceitos do Imgur:</p>

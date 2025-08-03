@@ -9,6 +9,7 @@ export interface Product {
   category: string;
   price: string;
   image: string;
+  imagePosition?: 'center' | 'top' | 'bottom' | 'left' | 'right';
 }
 
 const defaultProducts: Product[] = [

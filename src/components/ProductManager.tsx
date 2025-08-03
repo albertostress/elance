@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -21,7 +20,8 @@ const ProductManager = () => {
     description: '',
     category: '',
     price: '',
-    image: ''
+    image: '',
+    imagePosition: 'center' as 'center' | 'top' | 'bottom' | 'left' | 'right'
   });
 
   const categories = [
@@ -37,6 +37,16 @@ const ProductManager = () => {
     target.src = "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80";
   };
 
+  const getImagePositionClass = (position?: string) => {
+    switch (position) {
+      case 'top': return 'object-top';
+      case 'bottom': return 'object-bottom';
+      case 'left': return 'object-left';
+      case 'right': return 'object-right';
+      default: return 'object-center';
+    }
+  };
+
   const handleEdit = (product: Product) => {
     setIsEditing(product.id);
     setFormData({
@@ -45,7 +55,8 @@ const ProductManager = () => {
       description: product.description,
       category: product.category,
       price: product.price,
-      image: product.image
+      image: product.image,
+      imagePosition: product.imagePosition || 'center'
     });
   };
 
@@ -73,7 +84,8 @@ const ProductManager = () => {
       description: '',
       category: '',
       price: '',
-      image: ''
+      image: '',
+      imagePosition: 'center'
     });
   };
 
@@ -168,6 +180,8 @@ const ProductManager = () => {
               <ImageUpload
                 value={formData.image}
                 onChange={(url) => setFormData({...formData, image: url})}
+                imagePosition={formData.imagePosition}
+                onImagePositionChange={(position) => setFormData({...formData, imagePosition: position})}
                 label="Imagem do Produto"
               />
             </div>
@@ -191,7 +205,7 @@ const ProductManager = () => {
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-48 object-cover rounded-t-lg"
+                className={`w-full h-48 object-cover rounded-t-lg ${getImagePositionClass(product.imagePosition)}`}
                 onError={handleImageError}
               />
               <div className="absolute top-2 right-2 flex gap-2">
