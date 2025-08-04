@@ -5,8 +5,6 @@ import { Slider } from '@/components/ui/slider';
 import { MoveVertical, MoveHorizontal } from 'lucide-react';
 
 interface ImagePositionProps {
-  value: 'center' | 'top' | 'bottom' | 'left' | 'right';
-  onChange: (position: 'center' | 'top' | 'bottom' | 'left' | 'right') => void;
   imageUrl?: string;
   verticalPosition?: number;
   horizontalPosition?: number;
