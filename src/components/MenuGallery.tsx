@@ -74,10 +74,13 @@ const MenuGallery = () => {
               style={{ animationDelay: `${index * 150}ms` }}
             >
               <div className="relative overflow-hidden">
-                <img 
+                <img
                   src={product.image}
                   alt={product.name}
                   className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-700"
+                  style={{
+                    objectPosition: `${product.horizontalPosition || 50}% ${product.verticalPosition || 50}%`
+                  }}
                   onError={handleImageError}
                 />
                 

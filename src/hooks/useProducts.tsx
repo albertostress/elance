@@ -21,7 +21,9 @@ const defaultProducts: Product[] = [
     description: "Café expresso encorpado com aroma intenso",
     category: "cafes_quentes",
     price: "800 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/32e96a36.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
   {
     id: 2,
@@ -29,7 +31,9 @@ const defaultProducts: Product[] = [
     description: "Dose dupla de café expresso para mais energia",
     category: "cafes_quentes",
     price: "1.600 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/36e65ac6.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
   {
     id: 3,
@@ -37,7 +41,9 @@ const defaultProducts: Product[] = [
     description: "Café expresso com espuma cremosa de leite vaporizado",
     category: "cafes_quentes",
     price: "2.000 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/626bad5e.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
   {
     id: 4,
@@ -45,7 +51,9 @@ const defaultProducts: Product[] = [
     description: "Café expresso com uma pitada de espuma de leite",
     category: "cafes_quentes",
     price: "2.000 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/83f76c71.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
   {
     id: 5,
@@ -53,7 +61,9 @@ const defaultProducts: Product[] = [
     description: "Café com chocolate quente e espuma cremosa",
     category: "cafes_quentes",
     price: "3.000 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/8f3ff22e.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
   {
     id: 6,
@@ -61,7 +71,9 @@ const defaultProducts: Product[] = [
     description: "Café suave com muito leite cremoso",
     category: "cafes_quentes",
     price: "2.000 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/c26ef467.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
 
   // Cafés Gelados
@@ -71,7 +83,9 @@ const defaultProducts: Product[] = [
     description: "Gelado de baunilha com café expresso quente por cima",
     category: "cafes_gelados",
     price: "3.500 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/32e96a36.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
   {
     id: 8,
@@ -79,7 +93,9 @@ const defaultProducts: Product[] = [
     description: "Café gelado agitado com gelo e açúcar",
     category: "cafes_gelados",
     price: "2.100 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/36e65ac6.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
   {
     id: 9,
@@ -87,7 +103,9 @@ const defaultProducts: Product[] = [
     description: "Café gelado batido com gelo e leite cremoso",
     category: "cafes_gelados",
     price: "2.000 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/626bad5e.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
   {
     id: 10,
@@ -95,7 +113,9 @@ const defaultProducts: Product[] = [
     description: "Café com leite servido gelado com gelo",
     category: "cafes_gelados",
     price: "2.000 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/83f76c71.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
   {
     id: 11,
@@ -103,7 +123,9 @@ const defaultProducts: Product[] = [
     description: "Café expresso com água tônica e limão",
     category: "cafes_gelados",
     price: "2.000 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/8f3ff22e.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
 
   // Chocolates Quentes
@@ -113,7 +135,9 @@ const defaultProducts: Product[] = [
     description: "Chocolate, leite, açúcar, cacau, baunilha",
     category: "chocolates",
     price: "3.500 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/c26ef467.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
   {
     id: 13,
@@ -121,7 +145,9 @@ const defaultProducts: Product[] = [
     description: "Chocolate, leite, açúcar, cacau, baunilha, picante",
     category: "chocolates",
     price: "3.500 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/32e96a36.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
   {
     id: 14,
@@ -129,7 +155,9 @@ const defaultProducts: Product[] = [
     description: "Chocolate, leite condensado, água, cacau, baunilha",
     category: "chocolates",
     price: "3.500 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/36e65ac6.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
   {
     id: 15,
@@ -137,7 +165,9 @@ const defaultProducts: Product[] = [
     description: "Chocolate, leite creme, cacau, café, licor de café",
     category: "chocolates",
     price: "3.800 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/626bad5e.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
 
   // Gelados
@@ -148,7 +178,9 @@ const defaultProducts: Product[] = [
     description: "Refrescante gelado natural de manga madura",
     category: "gelados",
     price: "2.500 Kz",
-    image: "/lovable-uploads/36e65ac6-eb88-4165-9f22-28fdd7ae3fab.png"
+    image: "https://i.imgur.com/83f76c71.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
   {
     id: 17,
@@ -156,7 +188,9 @@ const defaultProducts: Product[] = [
     description: "Mix de frutas vermelhas frescas em gelado cremoso",
     category: "gelados",
     price: "2.500 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/8f3ff22e.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
   {
     id: 18,
@@ -164,7 +198,9 @@ const defaultProducts: Product[] = [
     description: "Refrescante gelado cítrico de limão natural",
     category: "gelados",
     price: "2.500 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/c26ef467.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
   {
     id: 19,
@@ -172,7 +208,9 @@ const defaultProducts: Product[] = [
     description: "Rico gelado de chocolate belga premium",
     category: "gelados",
     price: "2.500 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/32e96a36.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   },
   {
     id: 20,
@@ -181,7 +219,9 @@ const defaultProducts: Product[] = [
     description: "Tradicional gelado de múcua com sabor único angolano",
     category: "gelados",
     price: "2.800 Kz",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    image: "https://i.imgur.com/36e65ac6.png",
+    verticalPosition: 50,
+    horizontalPosition: 50
   }
 ];
 
