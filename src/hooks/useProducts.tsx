@@ -256,16 +256,7 @@ const safeGetItem = (key: string): string | null => {
 
 export const useProducts = () => {
   const [products, setProducts] = useState<Product[]>(() => {
-    const savedProducts = safeGetItem('elance-products');
-    if (savedProducts) {
-      try {
-        const parsed = JSON.parse(savedProducts);
-        console.log('Produtos carregados do localStorage:', parsed.length);
-        return parsed;
-      } catch (error) {
-        console.warn('Failed to parse saved products, using defaults:', error);
-      }
-    }
+    // Sempre usar os produtos padrão no site público
     console.log('Usando produtos padrão:', defaultProducts.length);
     return defaultProducts;
   });
