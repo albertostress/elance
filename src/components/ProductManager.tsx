@@ -6,12 +6,11 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useProducts, Product } from '@/hooks/useProducts';
-import { Pencil, Trash2, Plus } from 'lucide-react';
-import ImageUpload from './ImageUpload';
+import { Pencil, Trash2, Plus, Upload } from 'lucide-react';
 
 const ProductManager = () => {
-  const { products, addProduct, updateProduct, deleteProduct } = useProducts();
-  const [isEditing, setIsEditing] = useState<number | null>(null);
+  const { products, addProduct, updateProduct, deleteProduct, uploadImage, loading } = useProducts();
+  const [isEditing, setIsEditing] = useState<string | null>(null);
   const [isAdding, setIsAdding] = useState(false);
   
   const [formData, setFormData] = useState({
@@ -20,10 +19,9 @@ const ProductManager = () => {
     description: '',
     category: '',
     price: '',
-    image: '',
-    imagePosition: 'center' as 'center' | 'top' | 'bottom' | 'left' | 'right',
-    verticalPosition: 50,
-    horizontalPosition: 50
+    image_url: null as string | null,
+    image_position_vertical: 50,
+    image_position_horizontal: 50
   });
 
   const categories = [
@@ -40,22 +38,12 @@ const ProductManager = () => {
   };
 
   const getImageStyle = (product: Product) => {
-    if (product.verticalPosition !== undefined && product.horizontalPosition !== undefined) {
+    if (product.image_position_vertical !== undefined && product.image_position_horizontal !== undefined) {
       return {
-        objectPosition: `${product.horizontalPosition}% ${product.verticalPosition}%`
+        objectPosition: `${product.image_position_horizontal}% ${product.image_position_vertical}%`
       };
     }
-    return getImagePositionClass(product.imagePosition);
-  };
-
-  const getImagePositionClass = (position?: string) => {
-    switch (position) {
-      case 'top': return 'object-top';
-      case 'bottom': return 'object-bottom';
-      case 'left': return 'object-left';
-      case 'right': return 'object-right';
-      default: return 'object-center';
-    }
+    return { objectPosition: 'center' };
   };
 
   const handleEdit = (product: Product) => {
@@ -66,10 +54,9 @@ const ProductManager = () => {
       description: product.description,
       category: product.category,
       price: product.price,
-      image: product.image,
-      imagePosition: product.imagePosition || 'center',
-      verticalPosition: product.verticalPosition || 50,
-      horizontalPosition: product.horizontalPosition || 50
+      image_url: product.image_url,
+      image_position_vertical: product.image_position_vertical || 50,
+      image_position_horizontal: product.image_position_horizontal || 50
     });
   };
 
@@ -97,10 +84,9 @@ const ProductManager = () => {
       description: '',
       category: '',
       price: '',
-      image: '',
-      imagePosition: 'center',
-      verticalPosition: 50,
-      horizontalPosition: 50
+      image_url: null,
+      image_position_vertical: 50,
+      image_position_horizontal: 50
     });
   };
 
@@ -108,6 +94,24 @@ const ProductManager = () => {
     setIsAdding(true);
     resetForm();
   };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const imageUrl = await uploadImage(file);
+    if (imageUrl) {
+      setFormData({ ...formData, image_url: imageUrl });
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-8 text-center">
+        <p>Carregando produtos...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -192,15 +196,28 @@ const ProductManager = () => {
             </div>
 
             <div>
-              <ImageUpload
-                value={formData.image}
-                onChange={(url) => setFormData({...formData, image: url})}
-                verticalPosition={formData.verticalPosition}
-                horizontalPosition={formData.horizontalPosition}
-                onVerticalPositionChange={(value) => setFormData({...formData, verticalPosition: value})}
-                onHorizontalPositionChange={(value) => setFormData({...formData, horizontalPosition: value})}
-                label="Imagem do Produto"
-              />
+              <Label htmlFor="image">Imagem do Produto</Label>
+              <div className="mt-2">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileUpload}
+                  className="block w-full text-sm text-earth-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gold-50 file:text-gold-700 hover:file:bg-gold-100"
+                />
+                {formData.image_url && (
+                  <div className="mt-4">
+                    <img
+                      src={formData.image_url}
+                      alt="Preview"
+                      className="w-32 h-32 object-cover rounded-lg"
+                      style={getImageStyle({ 
+                        image_position_vertical: formData.image_position_vertical, 
+                        image_position_horizontal: formData.image_position_horizontal 
+                      } as Product)}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="flex gap-2 pt-4">
@@ -220,13 +237,10 @@ const ProductManager = () => {
           <Card key={product.id} className="hover:shadow-lg transition-shadow">
             <div className="relative">
               <img
-                src={product.image}
+                src={product.image_url || "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"}
                 alt={product.name}
                 className="w-full h-48 object-cover rounded-t-lg"
-                style={product.verticalPosition !== undefined && product.horizontalPosition !== undefined 
-                  ? { objectPosition: `${product.horizontalPosition}% ${product.verticalPosition}%` }
-                  : undefined
-                }
+                style={getImageStyle(product)}
                 onError={handleImageError}
               />
               <div className="absolute top-2 right-2 flex gap-2">

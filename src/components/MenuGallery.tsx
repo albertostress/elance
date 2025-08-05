@@ -75,11 +75,11 @@ const MenuGallery = () => {
             >
               <div className="relative overflow-hidden">
                 <img
-                  src={product.image}
+                  src={product.image_url || "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"}
                   alt={product.name}
                   className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-700"
                   style={{
-                    objectPosition: `${product.horizontalPosition || 50}% ${product.verticalPosition || 50}%`
+                    objectPosition: `${product.image_position_horizontal || 50}% ${product.image_position_vertical || 50}%`
                   }}
                   onError={handleImageError}
                 />
