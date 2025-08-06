@@ -6,10 +6,12 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useProducts, Product } from '@/hooks/useProducts';
+import { useCategories } from '@/hooks/useCategories';
 import { Pencil, Trash2, Plus, Upload } from 'lucide-react';
 
 const ProductManager = () => {
   const { products, addProduct, updateProduct, deleteProduct, uploadImage, loading } = useProducts();
+  const { categories, loading: categoriesLoading } = useCategories();
   const [isEditing, setIsEditing] = useState<string | null>(null);
   const [isAdding, setIsAdding] = useState(false);
   
@@ -24,13 +26,6 @@ const ProductManager = () => {
     image_position_horizontal: 50
   });
 
-  const categories = [
-    { value: 'gelados', label: 'Gelados' },
-    { value: 'cafes_quentes', label: 'Cafés Quentes' },
-    { value: 'cafes_gelados', label: 'Cafés Gelados' },
-    { value: 'chocolates', label: 'Chocolates Quentes' },
-    { value: 'especiais', label: 'Especialidades' }
-  ];
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     const target = e.target as HTMLImageElement;
@@ -105,20 +100,20 @@ const ProductManager = () => {
     }
   };
 
-  if (loading) {
+  if (loading || categoriesLoading) {
     return (
-      <div className="container mx-auto px-4 py-8 text-center">
-        <p>Carregando produtos...</p>
+      <div className="text-center">
+        <p>Carregando...</p>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-serif font-bold text-earth-900">
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-serif font-bold text-earth-900">
           Gestor de Menu
-        </h1>
+        </h2>
         <Button onClick={handleAdd} className="bg-gold-600 hover:bg-gold-700">
           <Plus className="w-4 h-4 mr-2" />
           Adicionar Produto
@@ -126,7 +121,7 @@ const ProductManager = () => {
       </div>
 
       {(isAdding || isEditing) && (
-        <Card className="mb-8">
+        <Card>
           <CardHeader>
             <CardTitle>
               {isAdding ? 'Adicionar Novo Produto' : 'Editar Produto'}
@@ -178,7 +173,7 @@ const ProductManager = () => {
                   <SelectContent>
                     {categories.map((cat) => (
                       <SelectItem key={cat.id} value={cat.name}>
-                        {cat.name}
+                        {cat.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -291,7 +286,7 @@ const ProductManager = () => {
                 product.category === 'chocolates' ? 'bg-amber-100 text-amber-700' :
                 'bg-ivory-200 text-earth-800'
               }`}>
-                {categories.find(cat => cat.value === product.category)?.label}
+                {categories.find(cat => cat.name === product.category)?.label || product.category}
               </span>
             </CardContent>
           </Card>

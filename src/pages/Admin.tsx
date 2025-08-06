@@ -1,8 +1,8 @@
-
 import ProductManager from '@/components/ProductManager';
 import CategoryManager from '@/components/CategoryManager';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { LogOut } from 'lucide-react';
 
 const Admin = () => {
@@ -31,9 +31,20 @@ const Admin = () => {
           </Button>
         </div>
       </div>
-      <div className="p-6">
-        <CategoryManager />
-        <ProductManager />
+      
+      <div className="container mx-auto px-4 py-8">
+        <Tabs defaultValue="products" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="products">Produtos</TabsTrigger>
+            <TabsTrigger value="categories">Categorias</TabsTrigger>
+          </TabsList>
+          <TabsContent value="products" className="mt-6">
+            <ProductManager />
+          </TabsContent>
+          <TabsContent value="categories" className="mt-6">
+            <CategoryManager />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

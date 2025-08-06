@@ -1,144 +1,158 @@
 import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Plus, Edit2, Trash2, X } from 'lucide-react';
-import { useCategories } from '@/hooks/useCategories';
+import { useCategories, Category } from '@/hooks/useCategories';
+import { Pencil, Trash2, Plus } from 'lucide-react';
 
 const CategoryManager = () => {
-  const { categories, loading, addCategory, updateCategory, deleteCategory } = useCategories();
+  const { categories, addCategory, updateCategory, deleteCategory, loading } = useCategories();
+  const [isEditing, setIsEditing] = useState<string | null>(null);
   const [isAdding, setIsAdding] = useState(false);
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [newCategoryName, setNewCategoryName] = useState('');
-  const [editCategoryName, setEditCategoryName] = useState('');
+  
+  const [formData, setFormData] = useState({
+    name: '',
+    label: ''
+  });
 
-  const handleAdd = async () => {
-    if (newCategoryName.trim()) {
-      await addCategory(newCategoryName.trim());
-      setNewCategoryName('');
+  const handleEdit = (category: Category) => {
+    setIsEditing(category.id);
+    setFormData({
+      name: category.name,
+      label: category.label
+    });
+  };
+
+  const handleSave = () => {
+    if (isAdding) {
+      addCategory(formData);
       setIsAdding(false);
+    } else if (isEditing) {
+      updateCategory(isEditing, formData);
+      setIsEditing(null);
     }
-  };
-
-  const handleEdit = (category: any) => {
-    setEditingId(category.id);
-    setEditCategoryName(category.name);
-  };
-
-  const handleUpdate = async () => {
-    if (editingId && editCategoryName.trim()) {
-      await updateCategory(editingId, editCategoryName.trim());
-      setEditingId(null);
-      setEditCategoryName('');
-    }
-  };
-
-  const handleDelete = async (id: string) => {
-    if (confirm('Tem certeza que deseja excluir esta categoria?')) {
-      await deleteCategory(id);
-    }
+    resetForm();
   };
 
   const handleCancel = () => {
+    setIsEditing(null);
     setIsAdding(false);
-    setEditingId(null);
-    setNewCategoryName('');
-    setEditCategoryName('');
+    resetForm();
+  };
+
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      label: ''
+    });
+  };
+
+  const handleAdd = () => {
+    setIsAdding(true);
+    resetForm();
   };
 
   if (loading) {
-    return <div>Carregando categorias...</div>;
+    return (
+      <div className="text-center">
+        <p>Carregando categorias...</p>
+      </div>
+    );
   }
 
   return (
-    <Card className="mb-6">
-      <CardHeader>
-        <CardTitle className="flex justify-between items-center">
-          Gestão de Categorias
-          {!isAdding && (
-            <Button onClick={() => setIsAdding(true)} size="sm">
-              <Plus className="w-4 h-4 mr-2" />
-              Adicionar Categoria
-            </Button>
-          )}
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        {isAdding && (
-          <div className="mb-4 p-4 border rounded-lg bg-muted/50">
-            <div className="flex gap-2 items-end">
-              <div className="flex-1">
-                <Label htmlFor="new-category">Nova Categoria</Label>
-                <Input
-                  id="new-category"
-                  value={newCategoryName}
-                  onChange={(e) => setNewCategoryName(e.target.value)}
-                  placeholder="Nome da categoria"
-                  onKeyDown={(e) => e.key === 'Enter' && handleAdd()}
-                />
-              </div>
-              <Button onClick={handleAdd} size="sm">
-                Adicionar
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-serif font-bold text-earth-900">
+          Gestor de Categorias
+        </h2>
+        <Button onClick={handleAdd} className="bg-gold-600 hover:bg-gold-700">
+          <Plus className="w-4 h-4 mr-2" />
+          Adicionar Categoria
+        </Button>
+      </div>
+
+      {(isAdding || isEditing) && (
+        <Card>
+          <CardHeader>
+            <CardTitle>
+              {isAdding ? 'Adicionar Nova Categoria' : 'Editar Categoria'}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <Label htmlFor="name">Nome da Categoria (ID)</Label>
+              <Input
+                id="name"
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                placeholder="Ex: bebidas_quentes"
+              />
+              <p className="text-sm text-earth-500 mt-1">
+                Use apenas letras minúsculas, números e underscores
+              </p>
+            </div>
+            
+            <div>
+              <Label htmlFor="label">Nome de Exibição</Label>
+              <Input
+                id="label"
+                value={formData.label}
+                onChange={(e) => setFormData({...formData, label: e.target.value})}
+                placeholder="Ex: Bebidas Quentes"
+              />
+            </div>
+
+            <div className="flex gap-2 pt-4">
+              <Button onClick={handleSave} className="bg-gold-600 hover:bg-gold-700">
+                Salvar
               </Button>
-              <Button onClick={handleCancel} variant="outline" size="sm">
-                <X className="w-4 h-4" />
+              <Button onClick={handleCancel} variant="outline">
+                Cancelar
               </Button>
             </div>
-          </div>
-        )}
+          </CardContent>
+        </Card>
+      )}
 
-        <div className="space-y-2">
-          {categories.map((category) => (
-            <div key={category.id} className="flex items-center justify-between p-3 border rounded-lg">
-              {editingId === category.id ? (
-                <div className="flex gap-2 items-center flex-1">
-                  <Input
-                    value={editCategoryName}
-                    onChange={(e) => setEditCategoryName(e.target.value)}
-                    className="flex-1"
-                    onKeyDown={(e) => e.key === 'Enter' && handleUpdate()}
-                  />
-                  <Button onClick={handleUpdate} size="sm">
-                    Salvar
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {categories.map((category) => (
+          <Card key={category.id} className="hover:shadow-lg transition-shadow">
+            <CardContent className="p-4">
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <h3 className="font-serif font-semibold text-earth-900">
+                    {category.label}
+                  </h3>
+                  <p className="text-sm text-earth-600">
+                    ID: {category.name}
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={() => handleEdit(category)}
+                    className="bg-white/90 hover:bg-white"
+                  >
+                    <Pencil className="w-4 h-4" />
                   </Button>
-                  <Button onClick={handleCancel} variant="outline" size="sm">
-                    <X className="w-4 h-4" />
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    onClick={() => deleteCategory(category.id)}
+                    className="bg-red-500/90 hover:bg-red-600"
+                  >
+                    <Trash2 className="w-4 h-4" />
                   </Button>
                 </div>
-              ) : (
-                <>
-                  <span className="font-medium">{category.name}</span>
-                  <div className="flex gap-2">
-                    <Button
-                      onClick={() => handleEdit(category)}
-                      variant="outline"
-                      size="sm"
-                    >
-                      <Edit2 className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      onClick={() => handleDelete(category.id)}
-                      variant="outline"
-                      size="sm"
-                      className="text-destructive hover:text-destructive"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {categories.length === 0 && (
-          <p className="text-center text-muted-foreground py-4">
-            Nenhuma categoria encontrada. Adicione a primeira categoria.
-          </p>
-        )}
-      </CardContent>
-    </Card>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
   );
 };
 
