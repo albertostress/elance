@@ -1,5 +1,6 @@
 
 import ProductManager from '@/components/ProductManager';
+import CategoryManager from '@/components/CategoryManager';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { LogOut } from 'lucide-react';
@@ -30,7 +31,10 @@ const Admin = () => {
           </Button>
         </div>
       </div>
-      <ProductManager />
+      <div className="p-6">
+        <CategoryManager />
+        <ProductManager />
+      </div>
     </div>
   );
 };
